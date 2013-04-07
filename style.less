@@ -1,0 +1,162 @@
+body {
+    background-color: #fff;
+    font-family: Helvetica Neue, Helvetica, Arial;
+}
+
+h1 {
+    text-align: center;
+}
+
+@size: 612px;
+@tiles: 4;
+
+@pos1: 0;
+@pos2: 1 * (@size / @tiles);
+@pos3: 2 * (@size / @tiles);
+@pos4: 3 * (@size / @tiles);
+
+.puzzle {
+    width: @size;
+    height: @size;
+    margin: 0 auto;
+    position: relative;
+}
+
+.tile {
+    width: @size / @tiles;
+    height: @size / @tiles;
+    background-image: url('puppy.jpeg');
+    border-radius: 6px;
+    box-shadow: inset 1px 1px 1px rgba(255,255,255,.6), inset -1px -1px 1px rgba(0,0,0,0.2), 1px 1px 3px rgba(0,0,0,0.2);
+    position: absolute;
+}
+
+.tile-content-1 {
+    background-position: -@pos1 -@pos1;
+}
+.tile-content-2 {
+    background-position: -@pos2 -@pos1;
+}
+.tile-content-3 {
+    background-position: -@pos3 -@pos1;
+}
+.tile-content-4 {
+    background-position: -@pos4 -@pos1;
+}
+.tile-content-5 {
+    background-position: -@pos1 -@pos2;
+}
+.tile-content-6 {
+    background-position: -@pos2 -@pos2;
+}
+.tile-content-7 {
+    background-position: -@pos3 -@pos2;
+}
+.tile-content-8 {
+    background-position: -@pos4 -@pos2;
+}
+.tile-content-9 {
+    background-position: -@pos1 -@pos3;
+}
+.tile-content-10 {
+    background-position: -@pos2 -@pos3;
+}
+.tile-content-11 {
+    background-position: -@pos3 -@pos3;
+}
+.tile-content-12 {
+    background-position: -@pos4 -@pos3;
+}
+.tile-content-13 {
+    background-position: -@pos1 -@pos4;
+}
+.tile-content-14 {
+    background-position: -@pos2 -@pos4;
+}
+.tile-content-15 {
+    background-position: -@pos3 -@pos4;
+}
+.tile-content-16 {
+    background-position: -@pos4 -@pos4;
+}
+
+.tile-pos-1 {
+    left: @pos1;
+    top: @pos1;
+    z-index: 1;
+}
+.tile-pos-2 {
+    left: @pos2;
+    top: @pos1;
+    z-index: 2;
+}
+.tile-pos-3 {
+    left: @pos3;
+    top: @pos1;
+    z-index: 3;
+}
+.tile-pos-4 {
+    left: @pos4;
+    top: @pos1;
+    z-index: 4;
+}
+.tile-pos-5 {
+    left: @pos1;
+    top: @pos2;
+    z-index: 5;
+}
+.tile-pos-6 {
+    left: @pos2;
+    top: @pos2;
+    z-index: 6;
+}
+.tile-pos-7 {
+    left: @pos3;
+    top: @pos2;
+    z-index: 7;
+}
+.tile-pos-8 {
+    left: @pos4;
+    top: @pos2;
+    z-index: 8;
+}
+.tile-pos-9 {
+    left: @pos1;
+    top: @pos3;
+    z-index: 9;
+}
+.tile-pos-10 {
+    left: @pos2;
+    top: @pos3;
+    z-index: 10;
+}
+.tile-pos-11 {
+    left: @pos3;
+    top: @pos3;
+    z-index: 11;
+}
+.tile-pos-12 {
+    left: @pos4;
+    top: @pos3;
+    z-index: 12;
+}
+.tile-pos-13 {
+    left: @pos1;
+    top: @pos4;
+    z-index: 13;
+}
+.tile-pos-14 {
+    left: @pos2;
+    top: @pos4;
+    z-index: 14;
+}
+.tile-pos-15 {
+    left: @pos3;
+    top: @pos4;
+    z-index: 15;
+}
+.tile-pos-16 {
+    left: @pos4 @pos4;
+    top: @pos4;
+    z-index: 16;
+}
