@@ -1,0 +1,78 @@
+// game state
+// game engine
+// input manager
+// solver
+// random shuffler
+
+
+(function(self) {
+    var GameState = function(state) {
+        this.state = state;
+        this.area = state.length;
+        this.side = Math.sqrt(this.area);
+    };
+
+    GameState.prototype.toString = function() {
+        var output = '';
+
+        for (var i = 0; i < this.side; i++) {
+            for (var j = 0; j < this.side; j++) {
+                var elem = this.state[i * this.side + j];
+                var elemoutput = '   ';
+                if (elem) {
+                    elemoutput += elem;
+                }
+
+                output += elemoutput.substring(elemoutput.length - 3, elemoutput.length);
+            }
+            output += '\n';
+        }
+
+        return output;
+    };
+
+    var getIndexOfOpenTile = function() {
+        var index;
+
+        console.log(this.side);
+        for (var i = 0; i < this.side; i++) {
+            if (this.state[i] == null) {
+                index = i;
+            }
+        }
+
+        return index;
+    };
+
+    GameState.prototype.getPossibleMoves = function() {
+        var open = getIndexOfOpenTile();
+
+        var possibleMoves = [open];
+
+        return possibleMoves;
+    };
+
+    self.GameState = GameState;
+}(self));
+
+
+function getInitialState() {
+    var size = 4,
+        squared = size * size,
+        state = [];
+
+    for (var i = 0; i < squared - 1; i++) {
+        state.push(i + 1);
+    }
+
+    state.push(null);
+
+    return state;
+}
+
+var state = getInitialState();
+var gameState = new window.GameState(state);
+var gameRepresentation = gameState.toString();
+
+console.log(gameRepresentation);
+console.log(gameState.getPossibleMoves());

@@ -12,138 +12,159 @@ h1 {
   position: relative;
 }
 .tile {
+  position: absolute;
   width: 153px;
   height: 153px;
-  background-image: url('puppy.jpeg');
+  transition-property: left, top;
+  transition-duration: 0.1s;
+}
+.tile-content {
+  /* background-image: url('placekitten.jpeg'); */
+
+  /* background-image: url('placepuppy.jpeg'); */
+
+  /* background-image: url('fillmurray.jpeg'); */
+
+  background-image: url('nicenicejpg.jpeg');
+  /* background-image: url('baconmockup.jpeg'); */
+
   border-radius: 6px;
   box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.6), inset -1px -1px 1px rgba(0, 0, 0, 0.2), 1px 1px 3px rgba(0, 0, 0, 0.2);
-  position: absolute;
+  text-align: center;
+  line-height: 153px;
+  font-size: 114.75px;
+  color: rgba(0, 0, 0, 0);
 }
-.tile-content-1 {
+.tile-content-shownumber {
+  color: rgba(0, 0, 0, 0.1);
+  text-shadow: 1px 1px 1px rgba(254, 255, 255, 0.45), -1px -1px 1px rgba(0, 0, 0, 0.05);
+  /* needs an additional div for the background to work:
+       http://stackoverflow.com/questions/13168142/is-it-possible-to-use-webkit-filter-blur-on-background-image
+       -webkit-filter: blur(5px); */
+
+}
+.tile-content-0 {
   background-position: 0 0;
 }
-.tile-content-2 {
+.tile-content-1 {
   background-position: -153px 0;
 }
-.tile-content-3 {
+.tile-content-2 {
   background-position: -306px 0;
 }
-.tile-content-4 {
+.tile-content-3 {
   background-position: -459px 0;
 }
-.tile-content-5 {
+.tile-content-4 {
   background-position: 0 -153px;
 }
-.tile-content-6 {
+.tile-content-5 {
   background-position: -153px -153px;
 }
-.tile-content-7 {
+.tile-content-6 {
   background-position: -306px -153px;
 }
-.tile-content-8 {
+.tile-content-7 {
   background-position: -459px -153px;
 }
-.tile-content-9 {
+.tile-content-8 {
   background-position: 0 -306px;
 }
-.tile-content-10 {
+.tile-content-9 {
   background-position: -153px -306px;
 }
-.tile-content-11 {
+.tile-content-10 {
   background-position: -306px -306px;
 }
-.tile-content-12 {
+.tile-content-11 {
   background-position: -459px -306px;
 }
-.tile-content-13 {
+.tile-content-12 {
   background-position: 0 -459px;
 }
-.tile-content-14 {
+.tile-content-13 {
   background-position: -153px -459px;
 }
-.tile-content-15 {
+.tile-content-14 {
   background-position: -306px -459px;
 }
-.tile-content-16 {
-  background-position: -459px -459px;
-}
-.tile-pos-1 {
+.tile-pos-0 {
   left: 0;
   top: 0;
   z-index: 1;
 }
-.tile-pos-2 {
+.tile-pos-1 {
   left: 153px;
   top: 0;
   z-index: 2;
 }
-.tile-pos-3 {
+.tile-pos-2 {
   left: 306px;
   top: 0;
   z-index: 3;
 }
-.tile-pos-4 {
+.tile-pos-3 {
   left: 459px;
   top: 0;
   z-index: 4;
 }
-.tile-pos-5 {
+.tile-pos-4 {
   left: 0;
   top: 153px;
   z-index: 5;
 }
-.tile-pos-6 {
+.tile-pos-5 {
   left: 153px;
   top: 153px;
   z-index: 6;
 }
-.tile-pos-7 {
+.tile-pos-6 {
   left: 306px;
   top: 153px;
   z-index: 7;
 }
-.tile-pos-8 {
+.tile-pos-7 {
   left: 459px;
   top: 153px;
   z-index: 8;
 }
-.tile-pos-9 {
+.tile-pos-8 {
   left: 0;
   top: 306px;
   z-index: 9;
 }
-.tile-pos-10 {
+.tile-pos-9 {
   left: 153px;
   top: 306px;
   z-index: 10;
 }
-.tile-pos-11 {
+.tile-pos-10 {
   left: 306px;
   top: 306px;
   z-index: 11;
 }
-.tile-pos-12 {
+.tile-pos-11 {
   left: 459px;
   top: 306px;
   z-index: 12;
 }
-.tile-pos-13 {
+.tile-pos-12 {
   left: 0;
   top: 459px;
   z-index: 13;
 }
-.tile-pos-14 {
+.tile-pos-13 {
   left: 153px;
   top: 459px;
   z-index: 14;
 }
-.tile-pos-15 {
+.tile-pos-14 {
   left: 306px;
   top: 459px;
   z-index: 15;
 }
-.tile-pos-16 {
-  left: 459px 459px;
+.tile-pos-15 {
+  left: 459px;
   top: 459px;
   z-index: 16;
 }
