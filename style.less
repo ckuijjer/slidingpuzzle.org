@@ -10,33 +10,50 @@ h1 {
 @size: 612px;
 @tiles: 4;
 
-@pos1: 0;
-@pos2: 1 * (@size / @tiles);
-@pos3: 2 * (@size / @tiles);
-@pos4: 3 * (@size / @tiles);
+@tile-size: 100% / @tiles;
+
+@pos1: 0 * @tile-size;
+@pos2: 1 * @tile-size;
+@pos3: 2 * @tile-size;
+@pos4: 3 * @tile-size;
+
+@content1: 0 * (100% / (@tiles - 1));
+@content2: 1 * (100% / (@tiles - 1));
+@content3: 2 * (100% / (@tiles - 1));
+@content4: 3 * (100% / (@tiles - 1));
 
 .puzzle {
-    width: @size;
-    height: @size;
+    max-width: @size;
+    max-height: @size;
     margin: 0 auto;
+}
+
+.puzzle-content {
     position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
 }
 
 .tile {
     position: absolute;
-    width: @size / @tiles;
-    height: @size / @tiles;
+    width: @tile-size;
+    height: @tile-size;
+    -webkit-transition-property: left, top;
     transition-property: left, top;
-    transition-duration: 0.1s;
+    -webkit-transition-duration: 0.15s;
+    transition-duration: 0.15s;
 
 }
 
 .tile-content {
     /* background-image: url('placekitten.jpeg'); */
-    /* background-image: url('placepuppy.jpeg'); */
-    /* background-image: url('fillmurray.jpeg'); */
-    background-image: url('nicenicejpg.jpeg');
+    // background-image: url('placepuppy.jpeg');
+    background-image: url('fillmurray_1224.jpeg');
+    /* background-image: url('nicenicejpg.jpeg'); */
     /* background-image: url('baconmockup.jpeg'); */
+    background-size: 100% * @tiles;
+
     border-radius: 6px;
     box-shadow: inset 1px 1px 1px rgba(255,255,255,.6), inset -1px -1px 1px rgba(0,0,0,0.2), 1px 1px 3px rgba(0,0,0,0.2);
 
@@ -56,49 +73,49 @@ h1 {
 }
 
 .tile-content-0 {
-    background-position: -@pos1 -@pos1;
+    background-position: @content1 @content1;
 }
 .tile-content-1 {
-    background-position: -@pos2 -@pos1;
+    background-position: @content2 @content1;
 }
 .tile-content-2 {
-    background-position: -@pos3 -@pos1;
+    background-position: @content3 @content1;
 }
 .tile-content-3 {
-    background-position: -@pos4 -@pos1;
+    background-position: @content4 @content1;
 }
 .tile-content-4 {
-    background-position: -@pos1 -@pos2;
+    background-position: @content1 @content2;
 }
 .tile-content-5 {
-    background-position: -@pos2 -@pos2;
+    background-position: @content2 @content2;
 }
 .tile-content-6 {
-    background-position: -@pos3 -@pos2;
+    background-position: @content3 @content2;
 }
 .tile-content-7 {
-    background-position: -@pos4 -@pos2;
+    background-position: @content4 @content2;
 }
 .tile-content-8 {
-    background-position: -@pos1 -@pos3;
+    background-position: @content1 @content3;
 }
 .tile-content-9 {
-    background-position: -@pos2 -@pos3;
+    background-position: @content2 @content3;
 }
 .tile-content-10 {
-    background-position: -@pos3 -@pos3;
+    background-position: @content3 @content3;
 }
 .tile-content-11 {
-    background-position: -@pos4 -@pos3;
+    background-position: @content4 @content3;
 }
 .tile-content-12 {
-    background-position: -@pos1 -@pos4;
+    background-position: @content1 @content4;
 }
 .tile-content-13 {
-    background-position: -@pos2 -@pos4;
+    background-position: @content2 @content4;
 }
 .tile-content-14 {
-    background-position: -@pos3 -@pos4;
+    background-position: @content3 @content4;
 }
 .tile-content-empty {
 }
