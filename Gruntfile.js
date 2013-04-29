@@ -17,8 +17,8 @@ module.exports = function(grunt) {
         stripBanners: true
       },
       dist: {
-        src: ['lib/<%= pkg.name %>.js'],
-        dest: 'dist/<%= pkg.name %>.js'
+        src: ['lib/*.js'],
+        dest: 'dist/app.js'
       }
     },
     uglify: {
@@ -26,8 +26,8 @@ module.exports = function(grunt) {
         banner: '<%= banner %>'
       },
       dist: {
-        src: '<%= concat.dist.dest %>',
-        dest: 'dist/<%= pkg.name %>.min.js'
+        src: 'dist/app.js',
+        dest: 'dist/app.min.js'
       }
     },
     jshint: {
