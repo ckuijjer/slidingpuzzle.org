@@ -4,44 +4,53 @@
         <link href="style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <!-- <h1>Sliding 15 puzzle</h1> -->
         <div class="container">
             <div class="puzzle">
-                <div class="puzzle-content">
-                    <div class="tile tile-pos-0 tile-content tile-content-0"></div>
-                    <div class="tile tile-pos-1 tile-content tile-content-1"></div>
-                    <div class="tile tile-pos-2 tile-content tile-content-2"></div>
-                    <div class="tile tile-pos-3 tile-content tile-content-3"></div>
-                    <div class="tile tile-pos-4 tile-content tile-content-4"></div>
-                    <div class="tile tile-pos-5 tile-content tile-content-5"></div>
-                    <div class="tile tile-pos-6 tile-content tile-content-6"></div>
-                    <div class="tile tile-pos-7 tile-content tile-content-7"></div>
-                    <div class="tile tile-pos-8 tile-content tile-content-8"></div>
-                    <div class="tile tile-pos-9 tile-content tile-content-9"></div>
-                    <div class="tile tile-pos-10 tile-content tile-content-10"></div>
-                    <div class="tile tile-pos-11 tile-content tile-content-11"></div>
-                    <div class="tile tile-pos-12 tile-content tile-content-12"></div>
-                    <div class="tile tile-pos-13 tile-content tile-content-13"></div>
-                    <div class="tile tile-pos-14 tile-content tile-content-14"></div>
-                    <div class="tile tile-pos-15 tile-content-empty"></div>
+                <div class="puzzle-container">
+                    <div class="puzzle-content">
+                        <div class="tile tile-pos-0 tile-content tile-content-0"></div>
+                        <div class="tile tile-pos-1 tile-content tile-content-1"></div>
+                        <div class="tile tile-pos-2 tile-content tile-content-2"></div>
+                        <div class="tile tile-pos-3 tile-content tile-content-3"></div>
+                        <div class="tile tile-pos-4 tile-content tile-content-4"></div>
+                        <div class="tile tile-pos-5 tile-content tile-content-5"></div>
+                        <div class="tile tile-pos-6 tile-content tile-content-6"></div>
+                        <div class="tile tile-pos-7 tile-content tile-content-7"></div>
+                        <div class="tile tile-pos-8 tile-content tile-content-8"></div>
+                        <div class="tile tile-pos-9 tile-content tile-content-9"></div>
+                        <div class="tile tile-pos-10 tile-content tile-content-10"></div>
+                        <div class="tile tile-pos-11 tile-content tile-content-11"></div>
+                        <div class="tile tile-pos-12 tile-content tile-content-12"></div>
+                        <div class="tile tile-pos-13 tile-content tile-content-13"></div>
+                        <div class="tile tile-pos-14 tile-content tile-content-14"></div>
+                        <div class="tile tile-pos-15 tile-content-empty"></div>
+                    </div>
                 </div>
             </div>
             <div class="controls">
-                <button class="btn">shuffle</button>
-                <button class="btn">solve</button>
-                <button class="btn">change picture</button>
-            </div>
-            <div class="status">
-                status
-            </div>
-            <div class="pictures">
+                <div class="controls-container">
+                    <div class="status">
+                        <div class="status-image">
+                        </div>
+                        <div class="status-text">Sliding Puzzle</div>
+                    </div>
+                    <button id="btn-shuffle" class="btn">shuffle</button>
+                    <button id="btn-solve" class="btn">solve</button>
+                    <button id="btn-change-picture" class="btn">change picture</button>
+                </div>
             </div>
         </div>
+        <div class="popup hidden">
+            <div class="popup-container">
+                <div class="pictures"></div>
+            </div>
+        </div>
+        <div class="popup-backdrop hidden"></div>
         <script type="text/javascript" src="jquery-1.9.1.js"></script>
         <script type="text/javascript" src="app.js"></script>
         <script>
             window.addEventListener('load', function() {
-                new FastClick(document.body);
+                <!-- new FastClick(document.body); -->
             }, false);
         </script>
     </body>

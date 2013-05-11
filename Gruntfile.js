@@ -17,7 +17,8 @@ module.exports = function(grunt) {
         stripBanners: true
       },
       dist: {
-        src: ['lib/*.js'],
+        // src: ['lib/fastclick.js', 'lib/quantize.js', 'lib/color-tunes.js', 'lib/instagram.js', 'lib/slidingpuzzle.js'],
+        src: ['lib/fastclick.js', 'lib/instagram.js', 'lib/slidingpuzzle.js'],
         dest: 'dist/app.js'
       }
     },
@@ -55,7 +56,7 @@ module.exports = function(grunt) {
         src: 'Gruntfile.js'
       },
       lib_test: {
-        src: ['lib/**/*.js', 'test/**/*.js']
+        src: ['lib/color-tunes.js', 'lib/instagram.js', 'lib/slidingpuzzle.js', 'test/**/*.js']
       }
     },
     less: {
