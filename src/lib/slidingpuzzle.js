@@ -267,7 +267,7 @@
                 classes += ' tile-content tile-content-' + content;
             }
 
-            $(selector).attr('class', classes);
+            $('#puzzle ' + selector).attr('class', classes);
         };
 
         this.render = function(gameState) {
@@ -704,12 +704,24 @@ var menuPage = new window.Page({
     }
 });
 
+var examplePage = new window.Page({
+    elementId: 'example',
+    stateMachine: stateMachine,
+    onInitialize: function() {
+        var _this = this;
+        $('#example-back').click(_this.deactivate);
+    } 
+});
+
 gameUIPage = new window.Page({
     elementId: 'puzzle',
     stateMachine: stateMachine,
     onInitialize: function() {
         $('#puzzle-menu').click(function() {
             menuPage.activate();
+        });
+        $('#puzzle-example').click(function() {
+            examplePage.activate();
         });
     }
 });

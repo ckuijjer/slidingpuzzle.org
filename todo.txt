@@ -1,5 +1,6 @@
 x Select background image
 * remove access token from hash
+  * pushstate?
 * isReverse doesn't work properly
 * configuration for debug / live in Grunt
 * animation when solved
