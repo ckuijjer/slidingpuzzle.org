@@ -623,7 +623,12 @@ var stateMachine = new window.StateMachine();
 
 var authenticateInstagramPage = new window.Page({
     elementId: 'authenticate',
-    stateMachine: stateMachine
+    stateMachine: stateMachine,
+    onInitialize: function() {
+        var _this = this;
+        $('#authenticate-back').click(_this.deactivate);
+        $('#authenticate-allow').click(instagramLibrary.getAuthenticationToken);
+    }
 });
 
 var instagramPopularPage = new window.Page({

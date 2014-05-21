@@ -17,3 +17,4 @@ x Select background image
 * something with the z-index
 * animate the background changing
 * CORS is now possible looking at the headers used on the fbcdn
+* 3x3 and 5x5

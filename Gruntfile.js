@@ -1,33 +1,41 @@
 /*global module:false*/
+
 module.exports = function(grunt) {
+  require('load-grunt-tasks')(grunt);
 
   // Project configuration.
   grunt.initConfig({
-    // Metadata.
     pkg: grunt.file.readJSON('package.json'),
     banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
       '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
       '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
       '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
       ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
-    // Task configuration.
+    files: {
+      javascript: ['src/lib/framework.js', 'src/lib/instagram.js', 'src/lib/slidingpuzzle.js'],
+      less: ['src/style.less']
+    },
     concat: {
       options: {
         banner: '<%= banner %>',
         stripBanners: true
       },
-      dist: {
-        src: ['lib/debug.js', 'lib/framework.js', 'lib/instagram.js', 'lib/slidingpuzzle.js'],
-        dest: 'dist/app.js'
+      release: {
+        src: ['src/lib/release.js', '<%= files.javascript %>'],
+        dest: 'release/app.js'
+      },
+      debug: {
+        src: ['src/lib/debug.js', '<%= files.javascript %>'],
+        dest: 'debug/app.js'
       }
     },
     uglify: {
       options: {
         banner: '<%= banner %>'
       },
-      dist: {
-        src: 'dist/app.js',
-        dest: 'dist/app.min.js'
+      release: {
+        src: 'release/app.js',
+        dest: 'release/app.min.js'
       }
     },
     jshint: {
@@ -45,6 +53,7 @@ module.exports = function(grunt) {
         eqnull: true,
         browser: true,
         globals: {
+          require: true,
           jQuery: true,
           $: true,
           console: true,
@@ -59,22 +68,48 @@ module.exports = function(grunt) {
       gruntfile: {
         src: 'Gruntfile.js'
       },
-      lib_test: {
-        src: ['lib/framework.js', 'lib/color-tunes.js', 'lib/instagram.js', 'lib/slidingpuzzle.js', 'test/**/*.js']
+      lib: {
+        src: '<%= files.javascript %>'
       }
     },
     less: {
-      all: {
+      release: {
         options: {
-          paths: ['dist']
+          paths: ['src']
         },
         files: {
-          "dist/style.css": "style.less"
+          "release/style.css": "src/style.less"
+        },
+        cleancss: true
+      },
+      debug: {
+        options: {
+          paths: ['src']
+        },
+        files: {
+          "debug/style.css": "src/style.less"
         }
       }
     },
-    qunit: {
-      files: ['test/**/*.html']
+    clean: {
+      release: 'release/*',
+      debug: 'debug/*'
+    },
+    copy: {
+      release: {
+        files: [
+          { src: 'src/index.html', dest: 'release/index.html' },
+          { src: 'src/assisi.jpeg', dest: 'release/assisi.jpeg' },
+          { src: 'src/lib/jquery-1.9.1.js', dest: 'release/jquery-1.9.1.js' }
+        ]
+      },
+      debug: {
+        files: [
+          { src: 'src/index.html', dest: 'debug/index.html' },
+          { src: 'src/assisi.jpeg', dest: 'debug/assisi.jpeg' },
+          { src: 'src/lib/jquery-1.9.1.js', dest: 'debug/jquery-1.9.1.js' }
+        ]
+      }
     },
     watch: {
       gruntfile: {
@@ -82,39 +117,44 @@ module.exports = function(grunt) {
         tasks: ['jshint:gruntfile']
       },
       html: {
-        files: 'dist/index.html',
+        files: 'src/index.html',
+        tasks: 'debug',
         options: {
           livereload: true
         }
       },
-      lib_test: {
-        files: '<%= jshint.lib_test.src %>',
-        // tasks: ['jshint:lib_test', 'qunit']
-        tasks: ['jshint', 'concat', 'uglify'],
+      lib: {
+        files: '<%= files.javascript %>',
+        tasks: 'debug',
         options: {
             livereload: true
         }
       },
       less: {
-        files: ['*.less'],
-        tasks: ['less:all'],
+        files: '<%= files.less %>',
+        tasks: 'debug',
         options: {
             livereload: true
+        }
+      }
+    },
+    connect: {
+      server: {
+        options: {
+          base: 'debug/',
+          debug: true,
+          hostname: 'localhost',
+          port: '9000',
+          open: true,
+          livereload: true,
+          keepalive: true
         }
       }
     }
   });
 
-  // These plugins provide necessary tasks.
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-qunit');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-less');
-
   // Default task.
-  // grunt.registerTask('default', ['jshint', 'qunit', 'concat', 'uglify']);
-  grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
-
+  grunt.registerTask('debug', ['clean:debug', 'less:debug', 'jshint', 'concat:debug', 'copy:debug']);
+  grunt.registerTask('release', ['clean:release', 'less:release', 'jshint', 'concat:release', 'uglify:release', 'copy:release']);
+  grunt.registerTask('default', 'debug');
 };
