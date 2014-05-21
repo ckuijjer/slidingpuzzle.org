@@ -1,6 +1,46 @@
+/* functions */
+.transition-property (@prop) {
+    -moz-transition-property: @prop;
+    -webkit-transition-property: @prop;
+    transition-property: @prop;
+}
+.transition-property (@prop1, @prop2) {
+    -moz-transition-property: @prop1, @prop2;
+    -webkit-transition-property: @prop1, @prop2;
+    transition-property: @prop1, @prop2;
+}
+
+.transition-duration (@duration) {
+    -moz-transition-duration: @duration;
+    -webkit-transition-duration: @duration;
+    transition-duration: @duration;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    background-color: #fff;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    background-color: #f7f7f7;
     font-family: Helvetica Neue, Helvetica, Arial;
+    font-size: 16px;
+    line-height: 24px;
+    color: #333;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+h1,
+h2 {
+    line-height: 1em;
+    margin-bottom: 0.4em;
 }
 
 .noselect {
@@ -26,151 +66,192 @@ body {
 @content3: 2 * (100% / (@tiles - 1));
 @content4: 3 * (100% / (@tiles - 1));
 
-.controls {
-    float: left;
-    max-width: 100% * 1 / (1 + @goldenratio);
+@btn-color: #ccddee;
+@dialog-backdrop-color: #333;
+@radius: 3px;
+
+.page {
+    position: relative;
+    /*max-width: 100% * 1 / (1 + @goldenratio);*/
     width: 100%;
 
-    @media (max-width: 768px) and (orientation:portrait) {
+    // @media (max-width: 768px) and (orientation:portrait) {
         clear: both;
-        margin-top: 2%;
         max-width: 100%;
+    // }
+}
+
+.container {
+    position: relative;
+    margin: 0 auto;
+    background-color: #fff;
+
+    @media (orientation: landscape) {
+        width: 85vh; 
     }
 }
 
-.controls-container {
-    margin: 0 1%;
+.left {
+    float: left;
 }
 
-.status {
-    height: 72px;
-    margin-bottom: 10px;
-    padding: 8px;
+.right {
+    float: right;
+}
+
+.clearfix {
+}
+
+.page {
+    height: 100%;
+}
+
+.page.page-animated {
+    -webkit-transition-property: left;
+    transition-property: left;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+}
+
+.page.page-right {
+    left: 100%;
+}
+
+.page.page-left {
+    left: -100%;
+}
+
+.page-header {
+    position: relative;
+    height: 44px;
     background-color: darken(@btn-color, 10%);
-    border-radius: 4px;
+    font-size: 24px;
+    line-height: 44px;
+    color: darken(@btn-color, 40%);
+    text-shadow: 0px 1px 1px fade(#fff, 50%);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 4px 8px;
 
-    @media (max-width: 480px) {
-        height: 36px;
+    .btn {
+        position: relative;
+        min-width: 36px;
+        height: 33px;
+        z-index: 2;
     }
 
-    .status-image {
-        width: 72px;
-        height: 72px;
-
+    .btn.left {
         margin-right: 8px;
-        border-radius: 4px;
-        background-size: 100%;
-        float: left;
-
-        @media (max-width: 480px) {
-            width: 36px;
-            height: 36px;
-        }
     }
 
-    .status-text {
-        color: darken(@btn-color, 40%);
+    .btn.right {
+        margin-left: 8px;
     }
 }
 
+.page-content {
+    position: relative;
+    margin: 8px;
+}
 
-@btn-color: #ccddee;
+.status-text {
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.status-image {
+    margin-right: 8px;
+    height: 36px;
+    width: 36px;
+    border-radius: @radius;
+    background-size: 100%;
+    float: left;
+}
 
 .btn {
-	width: 100%;
-	margin: 0 0 10px 0;
-	padding: 5px;
+    display: inline-block;
+	padding: 3px 6px;
 	background-color: @btn-color;
-	border-top: 1px solid lighten(@btn-color, 5%);
-    border-right: 1px solid darken(@btn-color, 10%);
-	border-bottom: 3px solid darken(@btn-color, 15%);
-	border-left: 1px solid darken(@btn-color, 5%);
-	border-radius: 4px;
+    box-shadow: 0 3px darken(@btn-color, 15%);
+    border: none;
+	border-radius: @radius;
 	color: darken(@btn-color, 30%);
 	text-shadow: 0px 1px 1px fade(#fff, 50%);
-	transition: background-color 0.3s;
     font-size: 18px;
     line-height: 18px;
+    height: 41px;
+    cursor: pointer;
+    .transition-property(background-color);
+    .transition-duration(0.3s);
+    margin-bottom: 3px;
 
 	&:active {
-		margin-top: 4px;
-        border: 1px @btn-color;
+        position: relative;
+        top: 3px;
+        box-shadow: none;
+        background-color: @btn-color;
 	}
-		
-    &:hover {
-		background-color: lighten(@btn-color, 5%);
+
+    &:hover,
+    &:focus {
+		/*background-color: lighten(@btn-color, 10%);*/
+        background-color: @btn-color;
+        outline: 0;
 	}
+
+    &.btn-full-width {
+        display: block;
+        width: 100%;
+    }
+}
+
+.btn-group {
+    .btn {
+        margin-bottom: 9px;
+    }
 }
 
 .hidden {
     display: none;
 }
 
-.popup-backdrop {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: fade(darken(@btn-color, 50%), 75%);
-    z-index: 100;
-}
-
-.popup {
-    position: fixed;
-    top: 5%;
-    bottom: 5%;
-    // padding: 5%;
-    max-width: @size;
-    width: 100%;
-    left: 50%;
-    margin-left: -(@size / 2);
-    border-radius: 4px;
-    background-color: @btn-color;
-    z-index: 101;
-
-    @media (max-width: @size) {
-        left: 5%;
-        right: 5%;
-        margin: 0;
-        width: 90%; // todo: wrong!
-    }
-}
-
-.popup-container {
-    margin: 38px;
-    overflow: scroll;
-
-    @media (max-width: @size) {
-        margin: 5%;
-    }
-}
-
 .pictures img {
-    border: 1px solid #ccc;
-    height: 100px;
-    width: 100px;
-    margin: 16px;
+    padding: 2px;
+    width: 25%;
+    cursor: pointer;
 }
 
 .container {
-    clear: both;
-    margin: 10px auto;
+    position: relative;
     max-width: @size * @goldenratio;
+    overflow: hidden;
+}
+
+.container-inner {
+    width: 100%;
+    position: relative;
+    .transition-duration(0.25s);
+    .transition-property(right);
+}
+
+.container-inner.open {
+    right: 100%;
+    margin: 0 -52px 0 52px;
+    .transition-duration(0.25s);
+    .transition-property(right);
 }
 
 .puzzle {
-    float: left;
-    max-width: 100% * (@goldenratio / (1 + @goldenratio));
+    // max-width: 100% * (@goldenratio / (1 + @goldenratio));
     width: 100%;
 
-    @media (max-width: 768px) and (orientation:portrait) {
-        max-width: 100%;
-    }
-}
-
-.puzzle-container {
-    margin: 0 1%;
+    // @media (max-width: 768px) and (orientation:portrait) {
+        // max-width: 100%;
+    // }
 }
 
 .puzzle-content {
@@ -183,12 +264,13 @@ body {
     position: absolute;
     width: @tile-size;
     height: @tile-size;
-    -webkit-transition-property: left, top;
-    transition-property: left, top;
-    -webkit-transition-duration: 0.2s;
-    transition-duration: 0.2s;
     cursor: pointer;
     .noselect;
+}
+
+.tile-animated {
+    .transition-property(left, top);
+    .transition-duration(0.2s);
 }
 
 .tile-content {
@@ -199,8 +281,8 @@ body {
     // background-image: url('baconmockup.jpeg');
     background-size: 100% * @tiles;
 
-    border-radius: 6px;
-    box-shadow: inset 1px 1px 1px rgba(255,255,255,0.6), inset -1px -1px 1px rgba(0,0,0,0.2), 1px 1px 3px rgba(0,0,0,0.6);
+    border-radius: 3px;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.7), inset -1px -1px 0 rgba(0, 0, 0, 0.3), 1px 1px 2px rgba(0,0,0,0.3);
 
     // text-align: center;
     // line-height: @size / @tiles;

@@ -1,170 +1,343 @@
-body {
-  background-color: #fff;
-  font-family: Helvetica Neue, Helvetica, Arial;
+/* functions */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-h1 {
+body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  background-color: #f7f7f7;
+  font-family: Helvetica Neue, Helvetica, Arial;
+  font-size: 16px;
+  line-height: 24px;
+  color: #333;
+}
+p {
+  margin-bottom: 1em;
+}
+h1,
+h2 {
+  line-height: 1em;
+  margin-bottom: 0.4em;
+}
+.noselect {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.page {
+  position: relative;
+  /*max-width: 100% * 1 / (1 + @goldenratio);*/
+
+  width: 100%;
+  clear: both;
+  max-width: 100%;
+}
+.container {
+  position: relative;
+  margin: 0 auto;
+  background-color: #fff;
+}
+@media (orientation: landscape) {
+  .container {
+    width: 85vh;
+  }
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.page {
+  height: 100%;
+}
+.page.page-animated {
+  -webkit-transition-property: left;
+  transition-property: left;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+.page.page-right {
+  left: 100%;
+}
+.page.page-left {
+  left: -100%;
+}
+.page-header {
+  position: relative;
+  height: 44px;
+  background-color: #a6c3e1;
+  font-size: 24px;
+  line-height: 44px;
+  color: #3c77b3;
+  text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.5);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 4px 8px;
+}
+.page-header .btn {
+  position: relative;
+  min-width: 36px;
+  height: 33px;
+  z-index: 2;
+}
+.page-header .btn.left {
+  margin-right: 8px;
+}
+.page-header .btn.right {
+  margin-left: 8px;
+}
+.page-content {
+  position: relative;
+  margin: 8px;
+}
+.status-text {
   text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.status-image {
+  margin-right: 8px;
+  height: 36px;
+  width: 36px;
+  border-radius: 3px;
+  background-size: 100%;
+  float: left;
+}
+.btn {
+  display: inline-block;
+  padding: 3px 6px;
+  background-color: #ccddee;
+  box-shadow: 0 3px #93b7db;
+  border: none;
+  border-radius: 3px;
+  color: #5990c8;
+  text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.5);
+  font-size: 18px;
+  line-height: 18px;
+  height: 41px;
+  cursor: pointer;
+  -moz-transition-property: background-color;
+  -webkit-transition-property: background-color;
+  transition-property: background-color;
+  -moz-transition-duration: 0.3s;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  margin-bottom: 3px;
+}
+.btn:active {
+  position: relative;
+  top: 3px;
+  box-shadow: none;
+  background-color: #ccddee;
+}
+.btn:hover,
+.btn:focus {
+  /*background-color: lighten(@btn-color, 10%);*/
+
+  background-color: #ccddee;
+  outline: 0;
+}
+.btn.btn-full-width {
+  display: block;
+  width: 100%;
+}
+.btn-group .btn {
+  margin-bottom: 9px;
+}
+.hidden {
+  display: none;
+}
+.pictures img {
+  padding: 2px;
+  width: 25%;
+  cursor: pointer;
+}
+.container {
+  position: relative;
+  max-width: 990.2368011149999px;
+  overflow: hidden;
+}
+.container-inner {
+  width: 100%;
+  position: relative;
+  -moz-transition-duration: 0.25s;
+  -webkit-transition-duration: 0.25s;
+  transition-duration: 0.25s;
+  -moz-transition-property: right;
+  -webkit-transition-property: right;
+  transition-property: right;
+}
+.container-inner.open {
+  right: 100%;
+  margin: 0 -52px 0 52px;
+  -moz-transition-duration: 0.25s;
+  -webkit-transition-duration: 0.25s;
+  transition-duration: 0.25s;
+  -moz-transition-property: right;
+  -webkit-transition-property: right;
+  transition-property: right;
 }
 .puzzle {
-  width: 612px;
-  height: 612px;
-  margin: 0 auto;
+  width: 100%;
+}
+.puzzle-content {
   position: relative;
+  width: 100%;
+  padding-bottom: 100%;
 }
 .tile {
   position: absolute;
-  width: 153px;
-  height: 153px;
+  width: 25%;
+  height: 25%;
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.tile-animated {
+  -moz-transition-property: left, top;
+  -webkit-transition-property: left, top;
   transition-property: left, top;
-  transition-duration: 0.1s;
+  -moz-transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
 }
 .tile-content {
-  /* background-image: url('placekitten.jpeg'); */
-
-  /* background-image: url('placepuppy.jpeg'); */
-
-  /* background-image: url('fillmurray.jpeg'); */
-
-  background-image: url('nicenicejpg.jpeg');
-  /* background-image: url('baconmockup.jpeg'); */
-
-  border-radius: 6px;
-  box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.6), inset -1px -1px 1px rgba(0, 0, 0, 0.2), 1px 1px 3px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  line-height: 153px;
-  font-size: 114.75px;
-  color: rgba(0, 0, 0, 0);
-}
-.tile-content-shownumber {
-  color: rgba(0, 0, 0, 0.1);
-  text-shadow: 1px 1px 1px rgba(254, 255, 255, 0.45), -1px -1px 1px rgba(0, 0, 0, 0.05);
-  /* needs an additional div for the background to work:
-       http://stackoverflow.com/questions/13168142/is-it-possible-to-use-webkit-filter-blur-on-background-image
-       -webkit-filter: blur(5px); */
-
+  background-size: 400%;
+  border-radius: 3px;
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.7), inset -1px -1px 0 rgba(0, 0, 0, 0.3), 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 .tile-content-0 {
-  background-position: 0 0;
+  background-position: 0% 0%;
 }
 .tile-content-1 {
-  background-position: -153px 0;
+  background-position: 33.333333333333336% 0%;
 }
 .tile-content-2 {
-  background-position: -306px 0;
+  background-position: 66.66666666666667% 0%;
 }
 .tile-content-3 {
-  background-position: -459px 0;
+  background-position: 100% 0%;
 }
 .tile-content-4 {
-  background-position: 0 -153px;
+  background-position: 0% 33.333333333333336%;
 }
 .tile-content-5 {
-  background-position: -153px -153px;
+  background-position: 33.333333333333336% 33.333333333333336%;
 }
 .tile-content-6 {
-  background-position: -306px -153px;
+  background-position: 66.66666666666667% 33.333333333333336%;
 }
 .tile-content-7 {
-  background-position: -459px -153px;
+  background-position: 100% 33.333333333333336%;
 }
 .tile-content-8 {
-  background-position: 0 -306px;
+  background-position: 0% 66.66666666666667%;
 }
 .tile-content-9 {
-  background-position: -153px -306px;
+  background-position: 33.333333333333336% 66.66666666666667%;
 }
 .tile-content-10 {
-  background-position: -306px -306px;
+  background-position: 66.66666666666667% 66.66666666666667%;
 }
 .tile-content-11 {
-  background-position: -459px -306px;
+  background-position: 100% 66.66666666666667%;
 }
 .tile-content-12 {
-  background-position: 0 -459px;
+  background-position: 0% 100%;
 }
 .tile-content-13 {
-  background-position: -153px -459px;
+  background-position: 33.333333333333336% 100%;
 }
 .tile-content-14 {
-  background-position: -306px -459px;
+  background-position: 66.66666666666667% 100%;
 }
 .tile-pos-0 {
-  left: 0;
-  top: 0;
+  left: 0%;
+  top: 0%;
   z-index: 1;
 }
 .tile-pos-1 {
-  left: 153px;
-  top: 0;
+  left: 25%;
+  top: 0%;
   z-index: 2;
 }
 .tile-pos-2 {
-  left: 306px;
-  top: 0;
+  left: 50%;
+  top: 0%;
   z-index: 3;
 }
 .tile-pos-3 {
-  left: 459px;
-  top: 0;
+  left: 75%;
+  top: 0%;
   z-index: 4;
 }
 .tile-pos-4 {
-  left: 0;
-  top: 153px;
+  left: 0%;
+  top: 25%;
   z-index: 5;
 }
 .tile-pos-5 {
-  left: 153px;
-  top: 153px;
+  left: 25%;
+  top: 25%;
   z-index: 6;
 }
 .tile-pos-6 {
-  left: 306px;
-  top: 153px;
+  left: 50%;
+  top: 25%;
   z-index: 7;
 }
 .tile-pos-7 {
-  left: 459px;
-  top: 153px;
+  left: 75%;
+  top: 25%;
   z-index: 8;
 }
 .tile-pos-8 {
-  left: 0;
-  top: 306px;
+  left: 0%;
+  top: 50%;
   z-index: 9;
 }
 .tile-pos-9 {
-  left: 153px;
-  top: 306px;
+  left: 25%;
+  top: 50%;
   z-index: 10;
 }
 .tile-pos-10 {
-  left: 306px;
-  top: 306px;
+  left: 50%;
+  top: 50%;
   z-index: 11;
 }
 .tile-pos-11 {
-  left: 459px;
-  top: 306px;
+  left: 75%;
+  top: 50%;
   z-index: 12;
 }
 .tile-pos-12 {
-  left: 0;
-  top: 459px;
+  left: 0%;
+  top: 75%;
   z-index: 13;
 }
 .tile-pos-13 {
-  left: 153px;
-  top: 459px;
+  left: 25%;
+  top: 75%;
   z-index: 14;
 }
 .tile-pos-14 {
-  left: 306px;
-  top: 459px;
+  left: 50%;
+  top: 75%;
   z-index: 15;
 }
 .tile-pos-15 {
-  left: 459px;
-  top: 459px;
+  left: 75%;
+  top: 75%;
   z-index: 16;
 }

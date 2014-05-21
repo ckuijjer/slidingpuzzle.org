@@ -1,0 +1,19 @@
+x Select background image
+* isReverse doesn't work properly
+* configuration for debug / live in Grunt
+* animation when solved
+* make status-image clickable
+* router instead of statemachine
+* animate route changes (tree structure)
+* cleanup css
+  * use grunt task for this? rather also remove it from the source not only the dist
+* cleanup js
+* Solve the puzzle
+* Puzzle status (e.g. moves made, minimum moves left)
+* jQuery.extend
+* maccaw events
+  * Events only work when their state is active
+* favicon changes based on state of the puzzle
+* something with the z-index
+* animate the background changing
+* CORS is now possible looking at the headers used on the fbcdn

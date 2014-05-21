@@ -17,8 +17,7 @@ module.exports = function(grunt) {
         stripBanners: true
       },
       dist: {
-        // src: ['lib/fastclick.js', 'lib/quantize.js', 'lib/color-tunes.js', 'lib/instagram.js', 'lib/slidingpuzzle.js'],
-        src: ['lib/fastclick.js', 'lib/instagram.js', 'lib/slidingpuzzle.js'],
+        src: ['lib/debug.js', 'lib/framework.js', 'lib/instagram.js', 'lib/slidingpuzzle.js'],
         dest: 'dist/app.js'
       }
     },
@@ -49,14 +48,19 @@ module.exports = function(grunt) {
           jQuery: true,
           $: true,
           console: true,
-          self: true
+          self: true,
+          Events: true,
+          StateMachine: true,
+          InstagramUser: true,
+          InstagramPopular: true,
+          InstagramLibrary: true
         }
       },
       gruntfile: {
         src: 'Gruntfile.js'
       },
       lib_test: {
-        src: ['lib/color-tunes.js', 'lib/instagram.js', 'lib/slidingpuzzle.js', 'test/**/*.js']
+        src: ['lib/framework.js', 'lib/color-tunes.js', 'lib/instagram.js', 'lib/slidingpuzzle.js', 'test/**/*.js']
       }
     },
     less: {
@@ -77,14 +81,26 @@ module.exports = function(grunt) {
         files: '<%= jshint.gruntfile.src %>',
         tasks: ['jshint:gruntfile']
       },
+      html: {
+        files: 'dist/index.html',
+        options: {
+          livereload: true
+        }
+      },
       lib_test: {
         files: '<%= jshint.lib_test.src %>',
         // tasks: ['jshint:lib_test', 'qunit']
-        tasks: ['jshint', 'concat', 'uglify']
+        tasks: ['jshint', 'concat', 'uglify'],
+        options: {
+            livereload: true
+        }
       },
       less: {
         files: ['*.less'],
-        tasks: ['less:all']
+        tasks: ['less:all'],
+        options: {
+            livereload: true
+        }
       }
     }
   });

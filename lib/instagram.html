@@ -1,0 +1,30 @@
+<html>
+    <body>
+        <div id="container">
+        </div>
+        <script type="text/javascript" src="jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="instagram.js"></script>
+        <script>
+            // instagram will do redirect to the redirectUrl if there is no
+            // accessToken. In the redirectUrl you should somehow encode the
+            // state of the application to be able to rebuild the applications
+            // state after redirecting
+            var instagram = new InstagramLibrary({
+                clientId: '769fa150377f4d39bcee25d52c489a23',
+                redirectUrl: 'http://localhost:8000/instagram.html?state=doWork',
+                localStorageNamespace: 'instagram'
+            });
+
+            var doWork = function() {
+                var promise = instagram.get('/media/popular');
+                promise.done(function(data) {
+                    console.dir(data);
+                })
+            };
+
+            // really simple router i guess
+
+
+        </script>
+    </body>
+</html>
