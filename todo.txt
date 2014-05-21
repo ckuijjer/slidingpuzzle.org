@@ -1,4 +1,5 @@
 x Select background image
+* remove access token from hash
 * isReverse doesn't work properly
 * configuration for debug / live in Grunt
 * animation when solved
@@ -18,3 +19,8 @@ x Select background image
 * animate the background changing
 * CORS is now possible looking at the headers used on the fbcdn
 * 3x3 and 5x5
+* set background should be scrollable
+* set background should show more than 20 pictures
+* clean up gruntfile
+  * use env?
+* change index.html to have a debug / release mode (perhaps add both and remove unneeded)
