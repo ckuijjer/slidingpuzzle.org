@@ -98,17 +98,34 @@ module.exports = function(grunt) {
     copy: {
       release: {
         files: [
-          { src: 'src/index.html', dest: 'release/index.html' },
-          { src: 'src/assisi.jpeg', dest: 'release/assisi.jpeg' },
-          { src: 'src/lib/jquery-1.9.1.js', dest: 'release/jquery-1.9.1.js' }
+          { src: 'src/assisi.jpeg', dest: 'release/assisi.jpeg' }
         ]
       },
       debug: {
         files: [
-          { src: 'src/index.html', dest: 'debug/index.html' },
           { src: 'src/assisi.jpeg', dest: 'debug/assisi.jpeg' },
-          { src: 'src/lib/jquery-1.9.1.js', dest: 'debug/jquery-1.9.1.js' }
+          { src: 'src/lib/jquery-1.11.1.js', dest: 'debug/jquery-1.11.1.js' }
         ]
+      }
+    },
+    replace: {
+      release: {
+        files: [ { src: 'src/index.html', dest: 'release/index.html' } ],
+        options: {
+          patterns: [
+            { match: 'app', replacement: 'app.min.js' },
+            { match: 'jquery', replacement: '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' }
+          ]
+        }
+      },
+      debug: {
+        files: [ { src: 'src/index.html', dest: 'debug/index.html' } ],
+        options: {
+          patterns: [
+            { match: 'app', replacement: 'app.js' },
+            { match: 'jquery', replacement: 'jquery-1.11.1.js' }
+          ]
+        }
       }
     },
     watch: {
@@ -154,7 +171,7 @@ module.exports = function(grunt) {
   });
 
   // Default task.
-  grunt.registerTask('debug', ['clean:debug', 'less:debug', 'jshint', 'concat:debug', 'copy:debug']);
-  grunt.registerTask('release', ['clean:release', 'less:release', 'jshint', 'concat:release', 'uglify:release', 'copy:release']);
+  grunt.registerTask('debug', ['clean:debug', 'less:debug', 'jshint', 'concat:debug', 'replace:debug', 'copy:debug']);
+  grunt.registerTask('release', ['clean:release', 'less:release', 'jshint', 'concat:release', 'uglify:release', 'replace:release', 'copy:release']);
   grunt.registerTask('default', 'debug');
 };

@@ -1,4 +1,5 @@
 x Select background image
+* change index.html to have a debug / release mode (perhaps add both and remove unneeded)
 * remove access token from hash
   * pushstate?
 * isReverse doesn't work properly
@@ -24,4 +25,3 @@ x Select background image
 * set background should show more than 20 pictures
 * clean up gruntfile
   * use env?
-* change index.html to have a debug / release mode (perhaps add both and remove unneeded)
