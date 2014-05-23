@@ -606,10 +606,10 @@ function addInstagramPictures(instagram, selector) {
 
         for (var i = 0; i < instagram.thumbnails.length; i++) {
             var src = instagram.thumbnails[i];
-            var html = $('<img>')
-                .data('counter', i)
-                .click(setImage)
-                .attr('src', src);
+            var html = $("<img />")
+                    .data('counter', i)
+                    .click(setImage)
+                    .attr('src', src);
 
             div.append(html);
         }

@@ -24,6 +24,7 @@
                 endpoint,
                 '?access_token=',
                 accessToken,
+                '&count=40',
                 '&callback=?'].join('');
 
             return url;
@@ -47,6 +48,13 @@
 
                     accessToken = kv[1];
                     window.localStorage.setItem(accessTokenName, accessToken);
+
+                    // remove the accesstoken from the document.location
+                    if (history && history.replaceState) {
+                        var replacement = document.location.toString().replace(document.location.hash, '');
+                        Logger.log(replacement);
+                        history.replaceState({}, document.title, replacement);
+                    }
                 } else {
                     Logger.log('InstagramLibrary parseAuthenticationToken accessToken not found');
                 }

@@ -98,12 +98,14 @@ module.exports = function(grunt) {
     copy: {
       release: {
         files: [
-          { src: 'src/assisi.jpeg', dest: 'release/assisi.jpeg' }
+          { src: 'src/assisi.jpeg', dest: 'release/assisi.jpeg' },
+          { src: 'src/favicon.ico', dest: 'debug/favicon.ico' }
         ]
       },
       debug: {
         files: [
           { src: 'src/assisi.jpeg', dest: 'debug/assisi.jpeg' },
+          { src: 'src/favicon.ico', dest: 'debug/favicon.ico' },
           { src: 'src/lib/jquery-1.11.1.js', dest: 'debug/jquery-1.11.1.js' }
         ]
       }
@@ -160,7 +162,7 @@ module.exports = function(grunt) {
         options: {
           base: 'debug/',
           debug: true,
-          hostname: 'localhost',
+          hostname: '*',
           port: '9000',
           open: true,
           livereload: true,

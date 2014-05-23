@@ -1,11 +1,11 @@
 x Select background image
-* change index.html to have a debug / release mode (perhaps add both and remove unneeded)
-* remove access token from hash
-  * pushstate?
+x change index.html to have a debug / release mode (perhaps add both and remove unneeded)
+x remove access token from hash
+  x pushstate? no replaceState :)
 * isReverse doesn't work properly
-* configuration for debug / live in Grunt
+x configuration for debug / live in Grunt
 * animation when solved
-* make status-image clickable
+x make status-image clickable
 * router instead of statemachine
 * animate route changes (tree structure)
 * cleanup css
@@ -17,11 +17,21 @@ x Select background image
 * maccaw events
   * Events only work when their state is active
 * favicon changes based on state of the puzzle
-* something with the z-index
+* add state of the puzzle to the url
+  * both bg and game state?
+* something with the z-index (when moving tiles the shadow is not always correct)
 * animate the background changing
 * CORS is now possible looking at the headers used on the fbcdn
 * 3x3 and 5x5
-* set background should be scrollable
+x set background should be scrollable
+  x make it more fluid on the iphone (scrollbar is also invisible)
+    x always have the scrollbar on the body, so use default browser behaviour
 * set background should show more than 20 pictures
+  * i think popular only supports 20? or perhaps try the count parameter?
+    * count parameter works
+    * but is there a maxid?
+    * for now 40 everywhere but I don't like that
 * clean up gruntfile
   * use env?
+* use templates in the html instead of defining the instagram pages 4 times
+* create a subclass of Page to be used for instagram pages
