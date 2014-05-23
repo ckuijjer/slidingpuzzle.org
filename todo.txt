@@ -4,6 +4,7 @@ x remove access token from hash
   x pushstate? no replaceState :)
 * isReverse doesn't work properly
 x configuration for debug / live in Grunt
+* something when solved :)
 * animation when solved
 x make status-image clickable
 * router instead of statemachine
