@@ -500,7 +500,6 @@
             var url = "url('" + image + "')";
             var hiddenImg = $('<img>')
                 .attr('src', image)
-                // .hide()
                 .load(function() {
                    $('.tile-content').css('background-image', url);
                    $('.status-image').css('background-image', url);

@@ -99,7 +99,7 @@ module.exports = function(grunt) {
       release: {
         files: [
           { src: 'src/assisi.jpeg', dest: 'release/assisi.jpeg' },
-          { src: 'src/favicon.ico', dest: 'debug/favicon.ico' }
+          { src: 'src/favicon.ico', dest: 'release/favicon.ico' }
         ]
       },
       debug: {

@@ -7,7 +7,7 @@ x configuration for debug / live in Grunt
 * animation when solved
 x make status-image clickable
 * router instead of statemachine
-* animate route changes (tree structure)
+	* animate route changes (tree structure)
 * cleanup css
   * use grunt task for this? rather also remove it from the source not only the dist
 * cleanup js
@@ -30,7 +30,7 @@ x set background should be scrollable
   * i think popular only supports 20? or perhaps try the count parameter?
     * count parameter works
     * but is there a maxid?
-    * for now 40 everywhere but I don't like that
+    x for now 40 everywhere but I don't like that
 * clean up gruntfile
   * use env?
 * use templates in the html instead of defining the instagram pages 4 times
