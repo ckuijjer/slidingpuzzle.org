@@ -12,7 +12,16 @@ module.exports = function(grunt) {
       '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
       ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
     files: {
-      javascript: ['src/lib/framework.js', 'src/lib/instagram.js', 'src/lib/slidingpuzzle.js'],
+      vendor: [
+        'src/lib/quantize.js',
+        'src/lib/color-tunes.js',
+        'src/lib/fastclick.js' 
+      ],
+      javascript: [
+        'src/lib/framework.js', 
+        'src/lib/instagram.js', 
+        'src/lib/slidingpuzzle.js'
+      ],
       less: ['src/style.less']
     },
     concat: {
@@ -21,11 +30,11 @@ module.exports = function(grunt) {
         stripBanners: true
       },
       release: {
-        src: ['src/lib/release.js', '<%= files.javascript %>'],
+        src: ['src/lib/release.js', '<%= files.vendor %>', '<%= files.javascript %>'],
         dest: 'release/app.js'
       },
       debug: {
-        src: ['src/lib/debug.js', '<%= files.javascript %>'],
+        src: ['src/lib/debug.js', '<%= files.vendor %>', '<%= files.javascript %>'],
         dest: 'debug/app.js'
       }
     },

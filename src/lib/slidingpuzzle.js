@@ -501,9 +501,9 @@
             var hiddenImg = $('<img>')
                 .attr('src', image)
                 .load(function() {
-                   $('.tile-content').css('background-image', url);
-                   $('.status-image').css('background-image', url);
-                   hiddenImg.remove();
+                    $('.tile-content').css('background-image', url);
+                    $('.status-image').css('background-image', url);
+                    hiddenImg.remove();
                 });
             window.localStorage.setItem('slidingpuzzle_background', image);
         };
