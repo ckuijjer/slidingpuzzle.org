@@ -98,7 +98,15 @@
     var InstagramUser = function(options) { this.library = options.library; };
     InstagramUser.prototype = new Instagram({'endpoint': 'users/self/media/recent'});
 
+    var InstagramFeed = function(options) { this.library = options.library; };
+    InstagramFeed.prototype = new Instagram({'endpoint': 'users/self/feed'});
+
+    var InstagramLiked = function(options) { this.library = options.library; };
+    InstagramLiked.prototype = new Instagram({'endpoint': 'users/self/media/liked'});
+
     exports.InstagramLibrary = InstagramLibrary;
     exports.InstagramPopular = InstagramPopular;
     exports.InstagramUser = InstagramUser;
+    exports.InstagramFeed = InstagramFeed;
+    exports.InstagramLiked = InstagramLiked;
 }(window, window.Logger));

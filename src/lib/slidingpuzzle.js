@@ -660,6 +660,34 @@ var instagramUserPage = new window.Page({
     }
 });
 
+var instagramFeedPage = new window.Page({
+    elementId: 'instagramfeed',
+    stateMachine: stateMachine,
+    onInitialize: function() {
+        var _this = this;
+        $('#instagramfeed-back').click(_this.deactivate);
+    },
+    onFirstActivation: function() { 
+        var instagram = new window.InstagramFeed({ library: instagramLibrary });
+        var selector = '#instagramfeed .pictures';
+        addInstagramPictures(instagram, selector);
+    }
+});
+
+var instagramLikedPage = new window.Page({
+    elementId: 'instagramliked',
+    stateMachine: stateMachine,
+    onInitialize: function() {
+        var _this = this;
+        $('#instagramliked-back').click(_this.deactivate);
+    },
+    onFirstActivation: function() { 
+        var instagram = new window.InstagramLiked({ library: instagramLibrary });
+        var selector = '#instagramliked .pictures';
+        addInstagramPictures(instagram, selector);
+    }
+});
+
 var backgroundPage = new window.Page({
     elementId: 'background',
     stateMachine: stateMachine,
@@ -668,6 +696,8 @@ var backgroundPage = new window.Page({
         $('#background-back').click(_this.deactivate);
         $('#background-popular').click(instagramPopularPage.activate);
         $('#background-user').click(instagramUserPage.activate);
+        $('#background-feed').click(instagramFeedPage.activate);
+        $('#background-liked').click(instagramLikedPage.activate);
     }
 });
 
