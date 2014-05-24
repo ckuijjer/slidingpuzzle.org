@@ -1,12 +1,6 @@
-x Select background image
-x change index.html to have a debug / release mode (perhaps add both and remove unneeded)
-x remove access token from hash
-  x pushstate? no replaceState :)
 * isReverse doesn't work properly
-x configuration for debug / live in Grunt
 * something when solved :)
 * animation when solved
-x make status-image clickable
 * router instead of statemachine
 	* animate route changes (tree structure)
 * cleanup css
@@ -14,25 +8,26 @@ x make status-image clickable
 * cleanup js
 * Solve the puzzle
 * Puzzle status (e.g. moves made, minimum moves left)
-* jQuery.extend
-* maccaw events
-  * Events only work when their state is active
 * favicon changes based on state of the puzzle
 * add state of the puzzle to the url
   * both bg and game state?
 * something with the z-index (when moving tiles the shadow is not always correct)
 * animate the background changing
 * CORS is now possible looking at the headers used on the fbcdn
+  * http://origincache-prn.fbcdn.net/925499_651950788229671_1515562348_s.jpg
+  * and today the instagramcdn is used which doesn't add the headers :(
+    * http://scontent-a.cdninstagram.com/hphotos-ash/t51.2885-15/923970_305820029567519_1057575204_n.jpg
+  * if colortunes is going to be used, make sure there is a try catch around it
 * 3x3 and 5x5
-x set background should be scrollable
-  x make it more fluid on the iphone (scrollbar is also invisible)
-    x always have the scrollbar on the body, so use default browser behaviour
 * set background should show more than 20 pictures
   * i think popular only supports 20? or perhaps try the count parameter?
     * count parameter works
     * but is there a maxid?
     x for now 40 everywhere but I don't like that
 * clean up gruntfile
-  * use env?
+* use env?
 * use templates in the html instead of defining the instagram pages 4 times
+* jQuery.extend
+* maccaw events
+  * Events only work when their state is active
 * create a subclass of Page to be used for instagram pages
