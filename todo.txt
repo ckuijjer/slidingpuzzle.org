@@ -5,6 +5,8 @@
 	* animate route changes (tree structure)
 * cleanup css
   * use grunt task for this? rather also remove it from the source not only the dist
+  * probably a need to move through the app as some classes are added dynamically
+    * automated testing?
 * cleanup js
 * Solve the puzzle
 * Puzzle status (e.g. moves made, minimum moves left)
@@ -12,6 +14,7 @@
 * add state of the puzzle to the url
   * both bg and game state?
 * something with the z-index (when moving tiles the shadow is not always correct)
+  * happens when moving up or down
 * animate the background changing
 * CORS is now possible looking at the headers used on the fbcdn
   * http://origincache-prn.fbcdn.net/925499_651950788229671_1515562348_s.jpg
