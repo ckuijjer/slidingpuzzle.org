@@ -368,6 +368,7 @@
                 var b = Math.abs(dragging.element.offset().left - dragging.initial.left);
                 var c = Math.abs(currentY - dragging.initial.top);
                 var d = Math.abs(dragging.element.offset().top - dragging.initial.top);
+
                 // there needs to be at least a move of one pixel in order to be
                 // in reverse direction (pixels are not rounded numbers, and other-
                 // wise it'll sometimes reverse unwanted.
@@ -527,7 +528,7 @@
     };
 
     window.GameUI = GameUI;
-}(window, jQuery, window.RandomPlayer));
+}(window, jQuery, window.RandomPlayer, window.Logger));
 
 
 (function(exports, Events, GameState) {
@@ -763,6 +764,12 @@ if (false) {
     player = player;
     gameUIPage = gameUIPage;
 }
+
+// bind fastclick
+$(function() {
+    window.FastClick.attach(document.body);
+});
+
 
 
 
