@@ -101,6 +101,24 @@ module.exports = function(grunt) {
         }
       }
     },
+    autoprefixer: {
+      options: {
+        browsers: ['last 2 versions', 'ie 8', 'ie 9', 'android 2.3', 'android 4', 'opera 12']
+      },
+      debug: {
+        options: {
+          diff: true,
+          map: true
+        },
+        src: 'debug/style.css'
+      }, 
+      release: {
+        options: {
+          map: true
+        },
+        src: 'release/style.css'
+      }
+    },
     clean: {
       release: 'release/*',
       debug: 'debug/*'
@@ -183,7 +201,7 @@ module.exports = function(grunt) {
   });
 
   // Default task.
-  grunt.registerTask('debug', ['clean:debug', 'less:debug', 'jshint', 'concat:debug', 'replace:debug', 'copy:debug']);
-  grunt.registerTask('release', ['clean:release', 'less:release', 'jshint', 'concat:release', 'uglify:release', 'replace:release', 'copy:release']);
+  grunt.registerTask('debug', ['clean:debug', 'less:debug', 'autoprefixer:debug', 'jshint', 'concat:debug', 'replace:debug', 'copy:debug']);
+  grunt.registerTask('release', ['clean:release', 'less:release', 'autoprefixer:release', 'jshint', 'concat:release', 'uglify:release', 'replace:release', 'copy:release']);
   grunt.registerTask('default', 'debug');
 };
