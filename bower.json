@@ -1,0 +1,20 @@
+{
+  "name": "slidingpuzzle",
+  "version": "0.0.0",
+  "homepage": "https://github.com/ckuijjer/slidingpuzzle",
+  "authors": [
+    "Casper Kuijjer <casper@kuijjer.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "fastclick": "~1.0.2",
+    "chroma-js": "~0.5.6"
+  }
+}

@@ -15,7 +15,8 @@ module.exports = function(grunt) {
       vendor: [
         'src/lib/quantize.js',
         'src/lib/color-tunes.js',
-        'src/lib/fastclick.js' 
+        'bower_components/fastclick/lib/fastclick.js',
+        'bower_components/chroma-js/chroma.min.js' 
       ],
       javascript: [
         'src/lib/framework.js', 

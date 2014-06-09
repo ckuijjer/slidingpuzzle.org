@@ -1,5 +1,6 @@
 window.configuration = {
 	debugMode: false,
     clientId: 'c91373d75d7742bab4a678204d416b0c',
-    redirectUrl: 'http://www.slidingpuzzle.org'
+    redirectUrl: 'http://www.slidingpuzzle.org',
+    proxyUrl: 'http://www.slidingpuzzle.org/get?url='
 };
