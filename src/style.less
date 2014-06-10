@@ -1,39 +1,23 @@
 /* functions */
-.transition-property (@prop) {
-    -moz-transition-property: @prop;
-    -webkit-transition-property: @prop;
-    transition-property: @prop;
-}
-.transition-property (@prop1, @prop2) {
-    -moz-transition-property: @prop1, @prop2;
-    -webkit-transition-property: @prop1, @prop2;
-    transition-property: @prop1, @prop2;
-}
-
-.transition-duration (@duration) {
-    -moz-transition-duration: @duration;
-    -webkit-transition-duration: @duration;
-    transition-duration: @duration;
-}
-
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+/* color classes */
+.bg-color-body { background-color: #f7f7f7; }
+.fg-color-body { color: #333; }
+
 body {
+    padding: 0;
     position: relative;
-    background-color: #f7f7f7;
     font-family: Helvetica Neue, Helvetica, Arial;
     font-size: 16px;
     line-height: 24px;
-    color: #333;
 }
 
-p {
-    margin-bottom: 1em;
-}
+p { margin-bottom: 1em; }
 
 h1,
 h2 {
@@ -41,12 +25,7 @@ h2 {
     margin-bottom: 0.4em;
 }
 
-.noselect {
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
+.noselect { user-select: none; }
 
 @goldenratio: 1.61803398875;
 @size: 612px;
@@ -70,13 +49,9 @@ h2 {
 
 .page {
     position: relative;
-    /*max-width: 100% * 1 / (1 + @goldenratio);*/
     width: 100%;
-
-    // @media (max-width: 768px) and (orientation:portrait) {
-        clear: both;
-        max-width: 100%;
-    // }
+    clear: both;
+    max-width: 100%;
 }
 
 .container {
@@ -89,34 +64,13 @@ h2 {
     }
 }
 
-.left {
-    float: left;
-}
-
-.right {
-    float: right;
-}
-
-.clearfix {
-}
-
-.page {
-    height: 100%;
-}
+.left { float: left; }
+.right { float: right; }
+.page { height: 100%; }
 
 .page.page-animated {
-    -webkit-transition-property: left;
     transition-property: left;
-    -webkit-transition-duration: 0.5s;
     transition-duration: 0.5s;
-}
-
-.page.page-right {
-    left: 100%;
-}
-
-.page.page-left {
-    left: -100%;
 }
 
 .page-header {
@@ -195,8 +149,8 @@ h2 {
     line-height: 18px;
     height: 41px;
     cursor: pointer;
-    .transition-property(background-color);
-    .transition-duration(0.3s);
+    transition-property: background-color;
+    transition-duration: 0.3s;
     margin-bottom: 3px;
 
 	&:active {
@@ -208,7 +162,6 @@ h2 {
 
     &:hover,
     &:focus {
-		/*background-color: lighten(@btn-color, 10%);*/
         background-color: @btn-color;
         outline: 0;
 	}
@@ -225,9 +178,7 @@ h2 {
     }
 }
 
-.hidden {
-    display: none;
-}
+.hidden { display: none; }
 
 .pictures img {
     width: 25%;
@@ -243,25 +194,18 @@ h2 {
 .container-inner {
     width: 100%;
     position: relative;
-    .transition-duration(0.25s);
-    .transition-property(right);
+    transition-duration: 0.25s;
+    transition-property: right;
 }
 
 .container-inner.open {
     right: 100%;
     margin: 0 -52px 0 52px;
-    .transition-duration(0.25s);
-    .transition-property(right);
+    transition-duration: 0.25s;
+    transition-property: right;
 }
 
-.puzzle {
-    // max-width: 100% * (@goldenratio / (1 + @goldenratio));
-    width: 100%;
-
-    // @media (max-width: 768px) and (orientation:portrait) {
-        // max-width: 100%;
-    // }
-}
+.puzzle { width: 100%; }
 
 .puzzle-content {
     position: relative;
@@ -278,8 +222,8 @@ h2 {
 }
 
 .tile-animated {
-    .transition-property(left, top);
-    .transition-duration(0.2s);
+    transition-property: left, top;
+    transition-duration: 0.2s;
 }
 
 .tile-content {
@@ -289,140 +233,26 @@ h2 {
     box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.7), inset -1px -1px 0 rgba(0, 0, 0, 0.3), 1px 1px 2px rgba(0,0,0,0.3);
 }
 
-// .tile-content-shownumber {
-//     color: rgba(0,0,0,0.10);
-//     text-shadow: 1px 1px 1px rgba(254,255,255,0.45), -1px -1px 1px rgba(0,0,0,0.05);
 
-//     /* needs an additional div for the background to work:
-//        http://stackoverflow.com/questions/13168142/is-it-possible-to-use-webkit-filter-blur-on-background-image
-//        -webkit-filter: blur(5px); */
-// }
+.generate-tiles(@i) when (@i < @tiles * @tiles) {
+    @x: mod(@i, @tiles);
+    @y: floor(@i / @tiles);
 
-.tile-content-0 {
-    background-position: @content1 @content1;
-}
-.tile-content-1 {
-    background-position: @content2 @content1;
-}
-.tile-content-2 {
-    background-position: @content3 @content1;
-}
-.tile-content-3 {
-    background-position: @content4 @content1;
-}
-.tile-content-4 {
-    background-position: @content1 @content2;
-}
-.tile-content-5 {
-    background-position: @content2 @content2;
-}
-.tile-content-6 {
-    background-position: @content3 @content2;
-}
-.tile-content-7 {
-    background-position: @content4 @content2;
-}
-.tile-content-8 {
-    background-position: @content1 @content3;
-}
-.tile-content-9 {
-    background-position: @content2 @content3;
-}
-.tile-content-10 {
-    background-position: @content3 @content3;
-}
-.tile-content-11 {
-    background-position: @content4 @content3;
-}
-.tile-content-12 {
-    background-position: @content1 @content4;
-}
-.tile-content-13 {
-    background-position: @content2 @content4;
-}
-.tile-content-14 {
-    background-position: @content3 @content4;
-}
-.tile-content-empty {
+    @tile-content: 100% / (@tiles - 1);
+    @tile-pos: 100% / @tiles;
+
+    .tile-content-@{i} {
+        background-position: (@tile-content * @x) (@tile-content * @y);
+    }
+
+    .tile-pos-@{i} {
+        left: @tile-pos * @x;
+        top: @tile-pos * @y;
+        z-index: @i;
+    }
+
+
+    .generate-tiles(@i + 1);
 }
 
-.tile-pos-0 {
-    left: @pos1;
-    top: @pos1;
-    z-index: 1;
-}
-.tile-pos-1 {
-    left: @pos2;
-    top: @pos1;
-    z-index: 2;
-}
-.tile-pos-2 {
-    left: @pos3;
-    top: @pos1;
-    z-index: 3;
-}
-.tile-pos-3 {
-    left: @pos4;
-    top: @pos1;
-    z-index: 4;
-}
-.tile-pos-4 {
-    left: @pos1;
-    top: @pos2;
-    z-index: 5;
-}
-.tile-pos-5 {
-    left: @pos2;
-    top: @pos2;
-    z-index: 6;
-}
-.tile-pos-6 {
-    left: @pos3;
-    top: @pos2;
-    z-index: 7;
-}
-.tile-pos-7 {
-    left: @pos4;
-    top: @pos2;
-    z-index: 8;
-}
-.tile-pos-8 {
-    left: @pos1;
-    top: @pos3;
-    z-index: 9;
-}
-.tile-pos-9 {
-    left: @pos2;
-    top: @pos3;
-    z-index: 10;
-}
-.tile-pos-10 {
-    left: @pos3;
-    top: @pos3;
-    z-index: 11;
-}
-.tile-pos-11 {
-    left: @pos4;
-    top: @pos3;
-    z-index: 12;
-}
-.tile-pos-12 {
-    left: @pos1;
-    top: @pos4;
-    z-index: 13;
-}
-.tile-pos-13 {
-    left: @pos2;
-    top: @pos4;
-    z-index: 14;
-}
-.tile-pos-14 {
-    left: @pos3;
-    top: @pos4;
-    z-index: 15;
-}
-.tile-pos-15 {
-    left: @pos4;
-    top: @pos4;
-    z-index: 16;
-}
+.generate-tiles(0);
