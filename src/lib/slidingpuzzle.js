@@ -243,7 +243,7 @@
 }(window));
 
 
-(function(window, $, RandomPlayer) {
+(function(window, $, RandomPlayer, ColorTunes, Chroma) {
     var GameUI = function(options) {
         var _this = this;
         var opt = options || {};
@@ -497,7 +497,7 @@
             initializeInputBindings();
         };
 
-        this.setBackground = function(image) {
+        this.setBackground = function(image, thumbnail) {
             var url = "url('" + image + "')";
             var hiddenImg = $('<img>')
                 .attr('src', image)
@@ -506,18 +506,88 @@
                     $('.status-image').css('background-image', url);
                     hiddenImg.remove();
                 });
+
+            var hiddenThumbnailImg = $('<img>')
+                .attr('crossOrigin', 'Anonymous')
+                .attr('src', thumbnail)
+                .load(function() {
+                    var palette = ColorTunes.getPalette(hiddenThumbnailImg[0]);
+
+                    var hook = $('body').find('#hook');
+                    if (!hook.length) {
+                        hook = $('<div id="hook"></div>')
+                            .css({
+                                'position': 'fixed',
+                                'bottom': '0'
+                            })
+                            .appendTo($('body'));
+                    }
+
+                    var changeClass = function(cls, property, value) {
+                        var sheet = document.styleSheets[0];
+                        var selector = '.' + cls;
+                        var declaration = property + ': ' + value + ';';
+
+                        if (sheet.insertRule) {
+                            sheet.insertRule(selector + ' { ' + declaration + ' }', sheet.cssRules.length);
+                        } else {
+                            sheet.addRule(selector, property); 
+                        }
+                    };
+
+                    var getColor = function(color, transparency) {
+                        if (transparency) {
+                            return 'rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ', ' + transparency + ')';
+                        } else {
+                            return 'rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ')';
+                        }
+                    };
+
+                    var palette1 = getColor(palette['bgColor']);
+                    var palette2 = getColor(palette['fgColor']);
+                    var palette3 = getColor(palette['fgColor2']);
+
+                    changeClass('palette-1-fg', 'color', palette1);
+                    changeClass('palette-1-bg', 'background-color', palette1);
+                    changeClass('palette-1-boxshadow', 'box-shadow', '0 3px ' + palette1);
+                    changeClass('palette-1-bg-a', 'background-color', 'rgba(' + new Chroma(palette1).alpha(0.4).rgba() + ')');
+                    changeClass('palette-1-bg-a2', 'background-color', 'rgba(' + new Chroma(palette1).alpha(0.2).rgba() + ')');
+
+                    changeClass('palette-2-fg', 'color', palette2);
+                    changeClass('palette-2-bg', 'background-color', palette2);
+                    changeClass('palette-2-boxshadow', 'box-shadow', '0 3px ' + palette2);
+                    changeClass('palette-2-bg-a', 'background-color', 'rgba(' + new Chroma(palette2).alpha(0.4).rgba() + ')');
+                    changeClass('palette-2-bg-a2', 'background-color', 'rgba(' + new Chroma(palette2).alpha(0.2).rgba() + ')');
+
+                    changeClass('palette-3-fg', 'color', palette3);
+                    changeClass('palette-3-bg', 'background-color', palette3);
+                    changeClass('palette-3-boxshadow', 'box-shadow', '0 3px ' + palette3);
+                    changeClass('palette-3-bg-a', 'background-color', 'rgba(' + new Chroma(palette3).alpha(0.4).rgba() + ')');
+                    changeClass('palette-3-bg-a2', 'background-color', 'rgba(' + new Chroma(palette3).alpha(0.2).rgba() + ')');
+
+                    hiddenThumbnailImg.remove();
+                });
+
             window.localStorage.setItem('slidingpuzzle_background', image);
+            if (thumbnail) {
+                window.localStorage.setItem('slidingpuzzle_background_thumbnail', thumbnail);
+            }
+        };
+
+        var initializeBackground = function() {
+            var background = window.localStorage.getItem('slidingpuzzle_background');
+            var background_thumbnail = window.localStorage.getItem('slidingpuzzle_background_thumbnail');
+
+            if (background) {
+                _this.setBackground(background, background_thumbnail);
+            } else {
+                _this.setBackground(opt.background, opt.background);
+            }
         };
 
         var initialize = function() {
             initializeBindings();
-
-            var background = window.localStorage.getItem('slidingpuzzle_background');
-            if (background) {
-                _this.setBackground(background);
-            } else {
-                _this.setBackground(opt.background);
-            }
+            initializeBackground();
 
             _this.render(game.getGameState());
 
@@ -528,7 +598,7 @@
     };
 
     window.GameUI = GameUI;
-}(window, jQuery, window.RandomPlayer, window.Logger));
+}(window, jQuery, window.RandomPlayer, window.ColorTunes, window.chroma));
 
 
 (function(exports, Events, GameState) {
@@ -596,7 +666,11 @@ var instagramLibrary = new InstagramLibrary({
 function addInstagramPictures(instagram, selector) {
     function setImage() {
         var i = $(this).data('counter');
-        gameUI.setBackground(instagram.images[i]);
+
+        // use proxy to workaround cors issues
+        var thumbnailUrl = configuration.proxyUrl + encodeURIComponent(instagram.thumbnails[i]);
+
+        gameUI.setBackground(instagram.images[i], thumbnailUrl);
         gameUIPage.activate();
     }
 

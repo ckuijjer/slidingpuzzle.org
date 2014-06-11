@@ -1,6 +1,8 @@
 * isReverse doesn't work properly
+* escape/back button should remove the top from the stack, not add to it
 * something when solved :)
 * animation when solved
+* fallback if the image 404's
 * router instead of statemachine
 	* animate route changes (tree structure)
 * cleanup css
