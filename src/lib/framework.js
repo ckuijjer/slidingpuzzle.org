@@ -85,6 +85,10 @@
             return;
         }
 
+        // activating a state that's already on the stack will pop the stack until that state
+        var found = false;
+        this.stack = this.stack.filter(function(current) { return !(found = found || current === controller); });
+
         $(this.states).each(function() {
             if (this !== controller) {
                 Logger.log(this.toString() + ' deactivating ' + this.toString());

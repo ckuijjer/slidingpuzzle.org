@@ -1,8 +1,8 @@
 * isReverse doesn't work properly
-* escape/back button should remove the top from the stack, not add to it
 * something when solved :)
 * animation when solved
 * fallback if the image 404's
+* load/store the palette in localStorage
 * router instead of statemachine
 	* animate route changes (tree structure)
 * cleanup css
@@ -18,11 +18,6 @@
 * something with the z-index (when moving tiles the shadow is not always correct)
   * happens when moving up or down
 * animate the background changing
-* CORS is now possible looking at the headers used on the fbcdn
-  * http://origincache-prn.fbcdn.net/925499_651950788229671_1515562348_s.jpg
-  * and today the instagramcdn is used which doesn't add the headers :(
-    * http://scontent-a.cdninstagram.com/hphotos-ash/t51.2885-15/923970_305820029567519_1057575204_n.jpg
-  * if colortunes is going to be used, make sure there is a try catch around it
 * 3x3 and 5x5
 * set background should show more than 20 pictures
   * i think popular only supports 20? or perhaps try the count parameter?
