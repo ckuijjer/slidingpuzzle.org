@@ -73,6 +73,16 @@ h2 {
 .right { float: right; }
 .page { height: 100%; }
 
+.palette-animated {
+    transition-property: background-color, box-shadow, color;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+}
+
+.image-animated {
+    transition: background-image 0.5s ease-in-out;
+}
+
 .page.page-animated {
     transition-property: left;
     transition-duration: 0.5s;
