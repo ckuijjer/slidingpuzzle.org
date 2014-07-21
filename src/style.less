@@ -51,14 +51,6 @@ h2 {
 
 @radius: 3px;
 
-.page {
-    position: relative;
-    width: 100%;
-    clear: both;
-    max-width: 100%;
-    overflow: auto;
-}
-
 .container {
     position: relative;
     margin: 0 auto;
@@ -71,7 +63,7 @@ h2 {
 
 .left { float: left; }
 .right { float: right; }
-.page { height: 100%; }
+.page { min-height: 100%; }
 
 .palette-animated {
     transition-property: background-color, box-shadow, color;
@@ -123,12 +115,7 @@ h2 {
 }
 
 .page-content {
-    position: absolute;
-    margin: 52px 8px 8px 8px;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    padding: 52px 8px 8px 8px;
 }
 
 .status-text {
