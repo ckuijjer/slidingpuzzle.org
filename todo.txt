@@ -1,4 +1,3 @@
-* isReverse doesn't work properly
 * something when solved :)
 * animation when solved
 * fallback if the image 404's

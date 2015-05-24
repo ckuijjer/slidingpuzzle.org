@@ -243,7 +243,7 @@
 }(window));
 
 
-(function(window, $, RandomPlayer, ColorTunes, Chroma) {
+(function(window, $, RandomPlayer, ColorTunes, Chroma, Logger) {
     var GameUI = function(options) {
         var _this = this;
         var opt = options || {};
@@ -362,17 +362,19 @@
                 }
             };
 
-            // not working properly
-            var isReverseDirection = function(currentX, currentY) {
+            var setDraggingReverseDirection = function(currentX, currentY) {
                 var a = Math.abs(currentX - dragging.initial.left);
                 var b = Math.abs(dragging.element.offset().left - dragging.initial.left);
                 var c = Math.abs(currentY - dragging.initial.top);
                 var d = Math.abs(dragging.element.offset().top - dragging.initial.top);
 
-                // there needs to be at least a move of one pixel in order to be
-                // in reverse direction (pixels are not rounded numbers, and other-
-                // wise it'll sometimes reverse unwanted.
-                return a - b < -1 || c - d < -1;
+                // if there is no movement, don't touch dragging.reverse
+                if (a - b === 0 && c - d === 0) {
+                    return;
+                }
+
+                // if there is a move of at least one pixel, set 
+                dragging.reverse = a - b < 0 || c - d < 0;
             };
 
             if (dragging) {
@@ -397,7 +399,7 @@
                         pageX - dragging.offset.left);
 
                 dragging.moved = true;
-                dragging.reverse = isReverseDirection(currentX, currentY);
+                setDraggingReverseDirection(currentX, currentY);
 
                 dragging.element.offset({
                     top: currentY,
@@ -435,7 +437,7 @@
         };
 
         var onSolved = function() {
-            console.log('solved!');
+            Logger.log('solved!');
         };
 
         var storeGameState = function() {
@@ -598,7 +600,7 @@
     };
 
     window.GameUI = GameUI;
-}(window, jQuery, window.RandomPlayer, window.ColorTunes, window.chroma));
+}(window, jQuery, window.RandomPlayer, window.ColorTunes, window.chroma, window.Logger));
 
 
 (function(exports, Events, GameState) {
@@ -831,13 +833,6 @@ gameUIPage = new window.Page({
 });
 
 gameUIPage.activate();
-
-// to skip an error from jsHint
-if (false) {
-    gameUI = gameUI;
-    player = player;
-    gameUIPage = gameUIPage;
-}
 
 // bind fastclick
 $(function() {
