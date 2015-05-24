@@ -251,7 +251,7 @@
         var player = opt.player;
         var dragging = null;
         var allowUserInput = false;
-        var onSolved = opt.onSolved || function() { Logger.log('onSolved'); };
+        var onSolved = opt.onSolved || function() {};
 
         var directions = ['right', 'bottom', 'left', 'top'];
 
@@ -458,8 +458,15 @@
             game.bind('init', _this.render)
                 .bind('move', _this.render)
                 .bind('move', storeGameState)
-                .bind('solved', onSolved);
+                .bind('solved', onSolvedInternal);
         };
+
+        var onSolvedInternal = function() {
+            if (allowUserInput) {
+                Logger.log('onSolved');
+                onSolved();
+            }
+        }
 
         var initializeInputBindings = function() {
             $(window)
