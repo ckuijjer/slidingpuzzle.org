@@ -251,6 +251,7 @@
         var player = opt.player;
         var dragging = null;
         var allowUserInput = false;
+        var onSolved = opt.onSolved || function() { Logger.log('onSolved'); };
 
         var directions = ['right', 'bottom', 'left', 'top'];
 
@@ -436,28 +437,9 @@
             }
         };
 
-        var onSolved = function() {
-            Logger.log('solved!');
-        };
-
         var storeGameState = function() {
             window.localStorage.setItem('slidingpuzzle_gamestate', game.getGameState().state);
         };
-
-        // this.solve = function() {
-        //     if (!allowUserInput) {
-        //         return;
-        //     }
-
-        //     allowUserInput = false;
-
-        //     var solvingPlayer = new SolvingPlayer();
-        //     solvingPlayer
-        //         .play()
-        //         .done(function() { allowUserInput = true; });
-
-        //     allowUserInput = true;
-        // };
 
         this.shuffle = function() {
             if (!allowUserInput) {
@@ -646,17 +628,24 @@ var state = window.localStorage.getItem('slidingpuzzle_gamestate');
 if (state) {
     state = state.split(',');
 }
+
+// todo: the problem of first defining all page variables and then being able to
+// use them should be solved by changing from a stateMachine to a router
+var gameUIPage,
+    solvedPage;
+
 var game = new window.Game({ state: state });
 var player = new window.Player({ game: game });
 var gameUI = new window.GameUI({
     game: game,
     player: player,
-    background: 'assisi.jpeg'
+    background: 'assisi.jpeg',
+    onSolved: function() { 
+        // 200ms to let the css animation end
+        window.setTimeout(solvedPage.activate, 200);
+    }
 });
 
-// todo: the problem of first defining all page variables and then being able to
-// use them should be solved by changing from a stateMachine to a router
-var gameUIPage;
 
 // Instagram
 var instagramLibrary = new InstagramLibrary({
@@ -832,7 +821,64 @@ gameUIPage = new window.Page({
     }
 });
 
+var introductionPage = new window.Page({
+    elementId: 'introduction',
+    stateMachine: stateMachine,
+    onInitialize: function() {
+        // simply always deactivate the page whatever action is taken. This makes the gameUIPage
+        // become the active one before switching to e.g. the menu.
+        var _this = this;
+
+        $('#introduction-menu').click(function() {
+            // simply always deactivate the page whatever action is taken. This makes the gameUIPage
+            // become the active one before switching to e.g. the menu.
+            _this.deactivate();
+            menuPage.activate();
+        });
+        $('#introduction-example').click(function() {
+            examplePage.activate();
+        });
+        $('#introduction-btn').click(function() {
+            gameUI.shuffle();
+            _this.deactivate();
+        });
+    }
+});
+
+solvedPage = new window.Page({
+    elementId: 'solved',
+    stateMachine: stateMachine,
+    onInitialize: function() {
+        var _this = this;
+
+        $('#solved-menu').click(function() {
+            // simply always deactivate the page whatever action is taken. This makes the gameUIPage
+            // become the active one before switching to e.g. the menu.
+            _this.deactivate();
+            menuPage.activate();
+        });
+        $('#solved-example').click(function() {
+            examplePage.activate();
+        });
+        $('#solved-btn').click(function() {
+            gameUI.shuffle();
+            _this.deactivate();
+        });
+    }
+});
+
+// workaround jshint warnings for now
+if (false) {
+    solvedPage = solvedPage;
+}
+
+
+// start
 gameUIPage.activate();
+
+if (!state) {
+    introductionPage.activate();
+}
 
 // bind fastclick
 $(function() {

@@ -1,4 +1,3 @@
-* something when solved :)
 * animation when solved
 * fallback if the image 404's
 * load/store the palette in localStorage
