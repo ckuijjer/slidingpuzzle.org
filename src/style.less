@@ -172,10 +172,37 @@ h2 {
 
 .hidden { display: none; }
 
-.pictures img {
+.thumbnail {
+    display: inline-block;
+    position: relative;
     width: 25%;
+    padding-top: 25%;
+}
+
+.thumbnail__image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     padding: 2px;
     cursor: pointer;
+}
+
+.thumbnail__loader {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    left: 2px;
+    background-color: #eee;
+    opacity: 0;
+    transition: opacity .2s ease-in-out;
+}
+
+.thumbnail--loading .thumbnail__loader {
+    opacity: 1;
 }
 
 .container {

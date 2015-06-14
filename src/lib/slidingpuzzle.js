@@ -466,7 +466,7 @@
                 Logger.log('onSolved');
                 onSolved();
             }
-        }
+        };
 
         var initializeInputBindings = function() {
             $(window)
@@ -674,16 +674,30 @@ function addInstagramPictures(instagram, selector) {
 
     var promise = instagram.get();
     promise.done(function() {
-        var div = $('<div class="pictures">');
+        var div = $('<div class="thumbnails">');
+
+        var imageHasLoaded = function() {
+            this.removeClass('thumbnail--loading');
+        };
 
         for (var i = 0; i < instagram.thumbnails.length; i++) {
             var src = instagram.thumbnails[i];
-            var html = $("<img />")
-                    .data('counter', i)
-                    .click(setImage)
-                    .attr('src', src);
+            var thumbnail = $('<div />');
 
-            div.append(html);
+            thumbnail.addClass('thumbnail')
+                    .addClass('thumbnail--loading')
+                    .append($("<img />")
+                        .addClass('thumbnail__image')
+                        .data('counter', i)
+                        .click(setImage)
+                        .attr('src', src)
+                        .load($.proxy(imageHasLoaded, thumbnail)))
+                    .append($('<div >/')
+                        .addClass('thumbnail__loader'));
+
+
+
+            div.append(thumbnail);
         }
 
         $(selector).replaceWith(div);
