@@ -47,7 +47,7 @@ h2 {
 @size: 612px;
 
 @tiles: 4;
-@tile-size: 100% / @tiles;
+@tile-size: (100% / @tiles);
 
 @radius: 3px;
 
@@ -274,7 +274,7 @@ h2 {
 }
 
 .tile-content {
-    background-size: 100% * @tiles;
+    background-size: (100% * @tiles);
 
     border-radius: 3px;
     box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.7), inset -1px -1px 0 rgba(0, 0, 0, 0.3), 1px 1px 2px rgba(0,0,0,0.3);
@@ -283,10 +283,10 @@ h2 {
 
 .generate-tiles(@i) when (@i < @tiles * @tiles) {
     @x: mod(@i, @tiles);
-    @y: floor(@i / @tiles);
+    @y: floor((@i / @tiles));
 
-    @tile-content: 100% / (@tiles - 1);
-    @tile-pos: 100% / @tiles;
+    @tile-content: (100% / (@tiles - 1));
+    @tile-pos: (100% / @tiles);
 
     .tile-content-@{i} {
         background-position: (@tile-content * @x) (@tile-content * @y);

@@ -1,52 +1,61 @@
 /*global module:false*/
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
 
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
+    banner:
+      '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
       '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
       '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
       '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-      ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
+      ' Licensed MIT */\n',
     files: {
       vendor: [
         'src/lib/quantize.js',
         'src/lib/color-tunes.js',
         'bower_components/fastclick/lib/fastclick.js',
-        'bower_components/chroma-js/chroma.min.js' 
+        'bower_components/chroma-js/chroma.min.js',
       ],
       javascript: [
-        'src/lib/framework.js', 
-        'src/lib/instagram.js', 
-        'src/lib/slidingpuzzle.js'
+        'src/lib/framework.js',
+        'src/lib/instagram.js',
+        'src/lib/slidingpuzzle.js',
       ],
-      less: ['src/style.less']
+      less: ['src/style.less'],
     },
     concat: {
       options: {
         banner: '<%= banner %>',
-        stripBanners: true
+        stripBanners: true,
       },
       release: {
-        src: ['src/lib/release.js', '<%= files.vendor %>', '<%= files.javascript %>'],
-        dest: 'release/app.js'
+        src: [
+          'src/lib/release.js',
+          '<%= files.vendor %>',
+          '<%= files.javascript %>',
+        ],
+        dest: 'release/app.js',
       },
       debug: {
-        src: ['src/lib/debug.js', '<%= files.vendor %>', '<%= files.javascript %>'],
-        dest: 'debug/app.js'
-      }
+        src: [
+          'src/lib/debug.js',
+          '<%= files.vendor %>',
+          '<%= files.javascript %>',
+        ],
+        dest: 'debug/app.js',
+      },
     },
     uglify: {
       options: {
-        banner: '<%= banner %>'
+        banner: '<%= banner %>',
       },
       release: {
         src: 'release/app.js',
-        dest: 'release/app.min.js'
-      }
+        dest: 'release/app.min.js',
+      },
     },
     jshint: {
       options: {
@@ -72,118 +81,130 @@ module.exports = function(grunt) {
           StateMachine: true,
           InstagramUser: true,
           InstagramPopular: true,
-          InstagramLibrary: true
-        }
+          InstagramLibrary: true,
+        },
+        esversion: 8,
       },
       gruntfile: {
-        src: 'Gruntfile.js'
+        src: 'Gruntfile.js',
       },
       lib: {
-        src: '<%= files.javascript %>'
-      }
+        src: '<%= files.javascript %>',
+      },
     },
     less: {
       release: {
         options: {
-          paths: ['src']
+          paths: ['src'],
         },
         files: {
-          "release/style.css": "src/style.less"
+          'release/style.css': 'src/style.less',
         },
-        cleancss: true
+        cleancss: true,
       },
       debug: {
         options: {
-          paths: ['src']
+          paths: ['src'],
         },
         files: {
-          "debug/style.css": "src/style.less"
-        }
-      }
+          'debug/style.css': 'src/style.less',
+        },
+      },
     },
     autoprefixer: {
       options: {
-        browsers: ['last 2 versions', 'ie 8', 'ie 9', 'android 2.3', 'android 4', 'opera 12']
+        browsers: [
+          'last 2 versions',
+          'ie 8',
+          'ie 9',
+          'android 2.3',
+          'android 4',
+          'opera 12',
+        ],
       },
       debug: {
         options: {
           diff: true,
-          map: true
+          map: true,
         },
-        src: 'debug/style.css'
-      }, 
+        src: 'debug/style.css',
+      },
       release: {
         options: {
-          map: true
+          map: true,
         },
-        src: 'release/style.css'
-      }
+        src: 'release/style.css',
+      },
     },
     clean: {
       release: 'release/*',
-      debug: 'debug/*'
+      debug: 'debug/*',
     },
     copy: {
       release: {
         files: [
           { src: 'src/assisi.jpeg', dest: 'release/assisi.jpeg' },
-          { src: 'src/favicon.ico', dest: 'release/favicon.ico' }
-        ]
+          { src: 'src/favicon.ico', dest: 'release/favicon.ico' },
+        ],
       },
       debug: {
         files: [
           { src: 'src/assisi.jpeg', dest: 'debug/assisi.jpeg' },
           { src: 'src/favicon.ico', dest: 'debug/favicon.ico' },
-          { src: 'src/lib/jquery-1.11.1.js', dest: 'debug/jquery-1.11.1.js' }
-        ]
-      }
+          { src: 'src/lib/jquery-1.11.1.js', dest: 'debug/jquery-1.11.1.js' },
+        ],
+      },
     },
     replace: {
       release: {
-        files: [ { src: 'src/index.html', dest: 'release/index.html' } ],
+        files: [{ src: 'src/index.html', dest: 'release/index.html' }],
         options: {
           patterns: [
             { match: 'app', replacement: 'app.min.js' },
-            { match: 'jquery', replacement: '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' }
-          ]
-        }
+            {
+              match: 'jquery',
+              replacement:
+                '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js',
+            },
+          ],
+        },
       },
       debug: {
-        files: [ { src: 'src/index.html', dest: 'debug/index.html' } ],
+        files: [{ src: 'src/index.html', dest: 'debug/index.html' }],
         options: {
           patterns: [
             { match: 'app', replacement: 'app.js' },
-            { match: 'jquery', replacement: 'jquery-1.11.1.js' }
-          ]
-        }
-      }
+            { match: 'jquery', replacement: 'jquery-1.11.1.js' },
+          ],
+        },
+      },
     },
     watch: {
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
-        tasks: ['jshint:gruntfile']
+        tasks: ['jshint:gruntfile'],
       },
       html: {
         files: 'src/index.html',
         tasks: 'debug',
         options: {
-          livereload: true
-        }
+          livereload: true,
+        },
       },
       lib: {
         files: '<%= files.javascript %>',
         tasks: 'debug',
         options: {
-            livereload: true
-        }
+          livereload: true,
+        },
       },
       less: {
         files: '<%= files.less %>',
         tasks: 'debug',
         options: {
-            livereload: true
-        }
-      }
+          livereload: true,
+        },
+      },
     },
     connect: {
       server: {
@@ -194,14 +215,31 @@ module.exports = function(grunt) {
           port: '9000',
           open: true,
           livereload: true,
-          keepalive: true
-        }
-      }
-    }
+          keepalive: true,
+        },
+      },
+    },
   });
 
   // Default task.
-  grunt.registerTask('debug', ['clean:debug', 'less:debug', 'autoprefixer:debug', 'jshint', 'concat:debug', 'replace:debug', 'copy:debug']);
-  grunt.registerTask('release', ['clean:release', 'less:release', 'autoprefixer:release', 'jshint', 'concat:release', 'uglify:release', 'replace:release', 'copy:release']);
+  grunt.registerTask('debug', [
+    'clean:debug',
+    'less:debug',
+    'autoprefixer:debug',
+    'jshint',
+    'concat:debug',
+    'replace:debug',
+    'copy:debug',
+  ]);
+  grunt.registerTask('release', [
+    'clean:release',
+    'less:release',
+    'autoprefixer:release',
+    'jshint',
+    'concat:release',
+    'uglify:release',
+    'replace:release',
+    'copy:release',
+  ]);
   grunt.registerTask('default', 'debug');
 };

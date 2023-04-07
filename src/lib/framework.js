@@ -1,184 +1,190 @@
 (function (exports, configuration) {
-    var debug = configuration.debugMode;
+  var debug = configuration.debugMode;
 
-    var Logger = {
-        log: function(msg) {
-            if (debug) {
-                console.log(msg);
-            }
-        },
-        dir: function(msg) {
-            if (debug) {
-                console.dir(msg);
-            }
-        }
-    };
+  var Logger = {
+    log: function (msg) {
+      if (debug) {
+        console.log(msg);
+      }
+    },
+    dir: function (msg) {
+      if (debug) {
+        console.dir(msg);
+      }
+    },
+  };
 
-    exports.Logger = Logger;
+  exports.Logger = Logger;
 })(window, window.configuration);
 
 (function (exports) {
-    var Events = function () {
-        this.events = [];
-    };
+  var Events = function () {
+    this.events = [];
+  };
 
-    Events.fn = Events.prototype;
+  Events.fn = Events.prototype;
 
-    Events.fn.bind = function (eventName, handler) {
-        if (!this.events[eventName]) {
-            this.events[eventName] = [];
-        }
-        this.events[eventName].push(handler);
-        return this;
-    };
+  Events.fn.bind = function (eventName, handler) {
+    if (!this.events[eventName]) {
+      this.events[eventName] = [];
+    }
+    this.events[eventName].push(handler);
+    return this;
+  };
 
-    Events.fn.trigger = function (eventName) {
-        var handlers = this.events[eventName];
-        if (handlers) {
-            var args = [].slice.call(arguments, 1);
-            for (var i = 0, j = handlers.length; i < j; i++) {
-                handlers[i].apply(this, args);
-            }
-        }
-        return this;
-    };
-    exports.Events = Events;
+  Events.fn.trigger = function (eventName) {
+    var handlers = this.events[eventName];
+    if (handlers) {
+      var args = [].slice.call(arguments, 1);
+      for (var i = 0, j = handlers.length; i < j; i++) {
+        handlers[i].apply(this, args);
+      }
+    }
+    return this;
+  };
+  exports.Events = Events;
 })(window);
 
 (function (exports, Logger) {
-    var StateMachine = function() {
-        this.stack = [];
-        this.states = [];
-    };
+  var wrap = function (fn, wrapper) {
+    if (typeof fn !== 'function') {
+      fn = function () {};
+    }
 
-    StateMachine.fn = StateMachine.prototype;
-    
-    StateMachine.fn.add = function(controller) {
-        Logger.log('StateMachine add ' + controller.toString());
+    wrapper._fn = fn;
+    return wrapper;
+  };
 
-        var _this = this;
-        this.states.push(controller);
+  var StateMachine = function () {
+    this.stack = [];
+    this.states = [];
+  };
 
-        controller.activate = wrap(controller.activate, function() {
-            _this.activate(controller);
-        });
+  StateMachine.fn = StateMachine.prototype;
 
-        controller.deactivate = wrap(controller.deactivate, function() {
-            _this.deactivate(controller);
-        });
-    };
+  StateMachine.fn.add = function (controller) {
+    Logger.log('StateMachine add ' + controller.toString());
 
-    var wrap = function(fn, wrapper) {
-        if (typeof fn !== 'function') {
-            fn = function() {};
-        }
+    var _this = this;
+    this.states.push(controller);
 
-        wrapper._fn = fn;
-        return wrapper;
-    };
+    controller.activate = wrap(controller.activate, function () {
+      _this.activate(controller);
+    });
 
-    StateMachine.fn.activate = function(controller) {
-        Logger.log(this.toString() + ' activate ' + controller.toString());
+    controller.deactivate = wrap(controller.deactivate, function () {
+      _this.deactivate(controller);
+    });
+  };
 
-        var current = this.stack.slice(-1)[0];
-        if (current === controller) {
-            return;
-        }
+  StateMachine.fn.activate = function (controller) {
+    Logger.log(this.toString() + ' activate ' + controller.toString());
 
-        // activating a state that's already on the stack will pop the stack until that state
-        var found = false;
-        this.stack = this.stack.filter(function(current) { return !(found = found || current === controller); });
+    var current = this.stack.slice(-1)[0];
+    if (current === controller) {
+      return;
+    }
 
-        $(this.states).each(function() {
-            if (this !== controller) {
-                Logger.log(this.toString() + ' deactivating ' + this.toString());
-                this.deactivate._fn();
-            }
-        });
+    // activating a state that's already on the stack will pop the stack until that state
+    var found = false;
+    this.stack = this.stack.filter(function (current) {
+      return !(found = found || current === controller);
+    });
 
-        $(this.states).each(function() {
-            if (this === controller) {
-                Logger.log(this.toString() + ' activating ' + this.toString());
-                this.activate._fn();
-            }
-        });
+    $(this.states).each(function () {
+      if (this !== controller) {
+        Logger.log(this.toString() + ' deactivating ' + this.toString());
+        this.deactivate._fn();
+      }
+    });
 
-        this.stack.push(controller);
-    };
+    $(this.states).each(function () {
+      if (this === controller) {
+        Logger.log(this.toString() + ' activating ' + this.toString());
+        this.activate._fn();
+      }
+    });
 
-    StateMachine.fn.deactivate = function(controller) {
-        Logger.log(this.toString() + ' deactivate ' + controller.toString());
+    this.stack.push(controller);
+  };
 
-        var current = this.stack.slice(-1)[0];
-        var previous = this.stack.slice(-2, -1)[0];
+  StateMachine.fn.deactivate = function (controller) {
+    Logger.log(this.toString() + ' deactivate ' + controller.toString());
 
-        if (current === controller && previous) {
-            this.stack = this.stack.slice(0,-2);
-            this.activate(previous);
-        }
-    };
+    var current = this.stack.slice(-1)[0];
+    var previous = this.stack.slice(-2, -1)[0];
 
-    StateMachine.fn.toString = function() {
-        return '[StateMachine]';
-    };
+    if (current === controller && previous) {
+      this.stack = this.stack.slice(0, -2);
+      this.activate(previous);
+    }
+  };
 
-    exports.StateMachine = StateMachine;
+  StateMachine.fn.toString = function () {
+    return '[StateMachine]';
+  };
+
+  exports.StateMachine = StateMachine;
 })(window, window.Logger);
 
-(function(exports, Logger) {
-    var Page = function(options) {
-        var _this = this;
+(function (exports, Logger) {
+  var Page = function (options) {
+    var _this = this;
 
-        var hasBeenActivated = false;
-        var isActive = false;
-        var elementId = options.elementId;
-        var $element = $('#' + elementId);
+    var hasBeenActivated = false;
+    var isActive = false;
+    var elementId = options.elementId;
+    var $element = $('#' + elementId);
 
-        var escapeHandler = function(e) {
-            if (e.keyCode === 27) {
-                Logger.log(_this.toString() + ' escape pressed');
-                _this.deactivate();
-                return false;
-            }
-        };
-
-        this.activate = function() {
-            if (!hasBeenActivated && options.onFirstActivation && typeof options.onFirstActivation === 'function') {
-                Logger.log(_this.toString() + ' onFirstActivation');
-
-                options.onFirstActivation.apply(_this);
-            }
-
-            $(window).on('keyup', escapeHandler);
-            hasBeenActivated = true;
-            isActive = true;
-            $element.removeClass('hidden');
-        };
-
-        this.deactivate = function() {
-            $(window).off('keyup', escapeHandler);
-            isActive = false;
-            $element.addClass('hidden');
-        };
-
-        this.toString = function() {
-            return '[Page #' + elementId + ']';
-        };
-
-        var initialize = function() {
-            // First add it to the statemachine as that changes the activate/deactivate functions            
-            if (options.stateMachine) {
-                options.stateMachine.add(_this);
-            }
-
-            if (options.onInitialize && typeof options.onInitialize === 'function') {
-                Logger.log(_this.toString() + ' onInitialize');
-                options.onInitialize.apply(_this); // as otherwise this is the options hash
-            }
-        };
-
-        initialize();
+    var escapeHandler = function (e) {
+      if (e.keyCode === 27) {
+        Logger.log(_this.toString() + ' escape pressed');
+        _this.deactivate();
+        return false;
+      }
     };
 
-    exports.Page = Page;
-}(window, window.Logger));
+    this.activate = function () {
+      if (
+        !hasBeenActivated &&
+        options.onFirstActivation &&
+        typeof options.onFirstActivation === 'function'
+      ) {
+        Logger.log(_this.toString() + ' onFirstActivation');
+
+        options.onFirstActivation.apply(_this);
+      }
+
+      $(window).on('keyup', escapeHandler);
+      hasBeenActivated = true;
+      isActive = true;
+      $element.removeClass('hidden');
+    };
+
+    this.deactivate = function () {
+      $(window).off('keyup', escapeHandler);
+      isActive = false;
+      $element.addClass('hidden');
+    };
+
+    this.toString = function () {
+      return '[Page #' + elementId + ']';
+    };
+
+    var initialize = function () {
+      // First add it to the statemachine as that changes the activate/deactivate functions
+      if (options.stateMachine) {
+        options.stateMachine.add(_this);
+      }
+
+      if (options.onInitialize && typeof options.onInitialize === 'function') {
+        Logger.log(_this.toString() + ' onInitialize');
+        options.onInitialize.apply(_this); // as otherwise this is the options hash
+      }
+    };
+
+    initialize();
+  };
+
+  exports.Page = Page;
+})(window, window.Logger);
